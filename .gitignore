@@ -1,0 +1,32 @@
+# ---- .NET ----
+backend/**/bin/
+backend/**/obj/
+*.user
+*.db
+*.db-shm
+*.db-wal
+
+# ---- Node / Frontend ----
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+*.local
+
+# ---- Environment & secrets ----
+.env
+.env.*
+!.env.example
+appsettings.*.local.json
+*.pfx
+*.key
+
+# ---- Editor / OS ----
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# ---- Logs ----
+*.log
+logs/

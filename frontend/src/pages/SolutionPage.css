@@ -1,0 +1,108 @@
+.solution-hero {
+  padding-block: var(--space-9) var(--space-8);
+}
+
+.solution-hero.tone-navy {
+  background: linear-gradient(135deg, var(--color-navy-900) 0%, var(--color-navy-700) 100%);
+  color: #fff;
+}
+
+.solution-hero.tone-teal {
+  background: linear-gradient(135deg, #073c34 0%, var(--color-teal-600) 100%);
+  color: #fff;
+}
+
+.solution-hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+.solution-hero h1 {
+  color: #fff;
+  margin-block: var(--space-4) var(--space-5);
+}
+
+.solution-hero p {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: var(--fs-lg);
+  max-width: 560px;
+}
+
+.solution-hero .eyebrow {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.solution-hero-ctas {
+  margin-top: var(--space-6);
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.solution-hero-visual {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+@media (max-width: 900px) {
+  .solution-hero-grid {
+    grid-template-columns: 1fr;
+  }
+  .solution-hero-visual {
+    order: -1;
+    max-width: 440px;
+    margin-inline: auto;
+  }
+}
+
+.feature-note {
+  margin-top: var(--space-7);
+  padding: var(--space-5);
+  background: var(--color-info-bg);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-sm);
+  color: var(--color-navy-800);
+  display: flex;
+  gap: var(--space-3);
+}
+
+.audience-section {
+  background: var(--color-bg-alt);
+}
+
+.audience-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: center;
+}
+
+.audience-chip {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: var(--space-3) var(--space-5);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+}
+
+.solution-cta-section {
+  background: var(--color-bg-alt);
+}
+
+.solution-cta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .solution-cta-grid {
+    grid-template-columns: 1fr;
+  }
+}

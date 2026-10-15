@@ -1,0 +1,77 @@
+.enquiry-form {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-md);
+}
+
+.enquiry-form-head {
+  margin-bottom: var(--space-5);
+}
+
+.enquiry-form-head h3 {
+  margin-bottom: var(--space-2);
+}
+
+.enquiry-form .alert {
+  margin-bottom: var(--space-5);
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+@media (max-width: 560px) {
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.enquiry-confirmation {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8) var(--space-6);
+  text-align: center;
+  box-shadow: var(--shadow-md);
+}
+
+.enquiry-confirmation-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--color-success-bg);
+  color: var(--color-success);
+  font-size: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-5);
+}
+
+.enquiry-confirmation h3 {
+  margin-bottom: var(--space-3);
+}
+
+.enquiry-confirmation p {
+  color: var(--color-text-muted);
+}
+
+.enquiry-reference {
+  margin-top: var(--space-5);
+  background: var(--color-bg-alt);
+  border-radius: var(--radius-sm);
+  padding: var(--space-4);
+  font-size: var(--fs-base);
+}

@@ -1,0 +1,29 @@
+.whatsapp-fab {
+  position: fixed;
+  bottom: var(--space-5);
+  right: var(--space-5);
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  z-index: 60;
+  transition: transform var(--transition-base);
+}
+
+.whatsapp-fab:hover {
+  transform: scale(1.08);
+}
+
+@media (max-width: 640px) {
+  .whatsapp-fab {
+    width: 52px;
+    height: 52px;
+    bottom: var(--space-4);
+    right: var(--space-4);
+  }
+}

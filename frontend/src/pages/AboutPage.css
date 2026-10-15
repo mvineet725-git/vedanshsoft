@@ -1,0 +1,38 @@
+.about-hero {
+  background: var(--color-bg-alt);
+  padding-block: var(--space-9) var(--space-7);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+.about-block h3 {
+  margin-block: var(--space-2) var(--space-3);
+}
+
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.about-approach-section {
+  background: var(--color-navy-900);
+  color: #fff;
+}
+
+.about-approach-section h2,
+.about-approach-section .eyebrow {
+  color: #fff;
+}
+
+.about-approach-section .eyebrow {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.about-approach-section p {
+  color: #cbd8ea;
+}
