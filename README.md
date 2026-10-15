@@ -73,7 +73,7 @@ npm install
 npm run dev
 ```
 
-The site runs on `http://localhost:5173` and proxies API calls to
+The site runs on `http://localhost:5275` and proxies API calls to
 `http://localhost:5280` (configurable via `VITE_API_BASE_URL`).
 
 ### Running Tests / Checks
