@@ -97,6 +97,7 @@ public class EnquiryService
         string? search,
         ProductInterest? product,
         EnquiryStatus? status,
+        EnquirySource? source,
         string? city,
         DateTime? fromDate,
         DateTime? toDate,
@@ -127,6 +128,11 @@ public class EnquiryService
         if (status.HasValue)
         {
             query = query.Where(e => e.Status == status.Value);
+        }
+
+        if (source.HasValue)
+        {
+            query = query.Where(e => e.EnquirySource == source.Value);
         }
 
         if (!string.IsNullOrWhiteSpace(city))
@@ -160,7 +166,9 @@ public class EnquiryService
                 OrganizationName = e.OrganizationName,
                 City = e.City,
                 ProductInterestedIn = e.ProductInterestedIn,
+                EnquirySource = e.EnquirySource,
                 Status = e.Status,
+                NextFollowUpDate = e.NextFollowUpDate,
                 CreatedAt = e.CreatedAt
             })
             .ToListAsync(ct);
@@ -193,6 +201,10 @@ public class EnquiryService
         if (request.AssignedTo is not null)
         {
             enquiry.AssignedTo = request.AssignedTo;
+        }
+        if (request.NextFollowUpDate.HasValue)
+        {
+            enquiry.NextFollowUpDate = request.NextFollowUpDate;
         }
         enquiry.UpdatedAt = DateTime.UtcNow;
 
@@ -230,6 +242,16 @@ public class EnquiryService
         var totalEnquiries = await _db.ContactEnquiries.CountAsync(ct);
         var newEnquiries = await _db.ContactEnquiries.CountAsync(e => e.Status == EnquiryStatus.New, ct);
 
+        var todayUtc = DateTime.UtcNow.Date;
+        var tomorrowUtc = todayUtc.AddDays(1);
+
+        var followUpsDueToday = await _db.ContactEnquiries.CountAsync(
+            e => e.NextFollowUpDate.HasValue && e.NextFollowUpDate.Value >= todayUtc && e.NextFollowUpDate.Value < tomorrowUtc, ct);
+
+        var overdueFollowUps = await _db.ContactEnquiries.CountAsync(
+            e => e.NextFollowUpDate.HasValue && e.NextFollowUpDate.Value < todayUtc
+                && e.Status != EnquiryStatus.Converted && e.Status != EnquiryStatus.Closed, ct);
+
         var byProduct = await _db.ContactEnquiries
             .GroupBy(e => e.ProductInterestedIn)
             .Select(g => new { Product = g.Key, Count = g.Count() })
@@ -238,6 +260,11 @@ public class EnquiryService
         var byStatus = await _db.ContactEnquiries
             .GroupBy(e => e.Status)
             .Select(g => new { Status = g.Key, Count = g.Count() })
+            .ToListAsync(ct);
+
+        var bySource = await _db.ContactEnquiries
+            .GroupBy(e => e.EnquirySource)
+            .Select(g => new { Source = g.Key, Count = g.Count() })
             .ToListAsync(ct);
 
         var recent = await _db.ContactEnquiries
@@ -254,7 +281,9 @@ public class EnquiryService
                 OrganizationName = e.OrganizationName,
                 City = e.City,
                 ProductInterestedIn = e.ProductInterestedIn,
+                EnquirySource = e.EnquirySource,
                 Status = e.Status,
+                NextFollowUpDate = e.NextFollowUpDate,
                 CreatedAt = e.CreatedAt
             })
             .ToListAsync(ct);
@@ -263,8 +292,11 @@ public class EnquiryService
         {
             TotalEnquiries = totalEnquiries,
             NewEnquiries = newEnquiries,
+            FollowUpsDueToday = followUpsDueToday,
+            OverdueFollowUps = overdueFollowUps,
             EnquiriesByProduct = byProduct.ToDictionary(x => x.Product.ToString(), x => x.Count),
             EnquiriesByStatus = byStatus.ToDictionary(x => x.Status.ToString(), x => x.Count),
+            EnquiriesBySource = bySource.ToDictionary(x => x.Source.ToString(), x => x.Count),
             RecentEnquiries = recent
         };
     }

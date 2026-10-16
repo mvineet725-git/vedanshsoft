@@ -263,6 +263,9 @@ namespace VedanshSoftware.Api.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime?>("NextFollowUpDate")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("OrganizationName")
                         .HasMaxLength(150)
                         .HasColumnType("TEXT");

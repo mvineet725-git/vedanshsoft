@@ -42,6 +42,8 @@ export const EnquiryStatus = {
   FollowUpRequired: 3,
   Converted: 4,
   Closed: 5,
+  Qualified: 6,
+  Proposal: 7,
 } as const;
 export type EnquiryStatus = (typeof EnquiryStatus)[keyof typeof EnquiryStatus];
 
@@ -52,6 +54,8 @@ export const ENQUIRY_STATUS_LABELS: Record<EnquiryStatus, string> = {
   3: "Follow-up Required",
   4: "Converted",
   5: "Closed",
+  6: "Qualified",
+  7: "Proposal/Quotation",
 };
 
 export const ENQUIRY_STATUS_LABELS_BY_NAME: Record<string, string> = {
@@ -61,6 +65,8 @@ export const ENQUIRY_STATUS_LABELS_BY_NAME: Record<string, string> = {
   FollowUpRequired: "Follow-up Required",
   Converted: "Converted",
   Closed: "Closed",
+  Qualified: "Qualified",
+  Proposal: "Proposal/Quotation",
 };
 
 export const ENQUIRY_STATUS_BADGE_CLASS: Record<EnquiryStatus, string> = {
@@ -70,6 +76,8 @@ export const ENQUIRY_STATUS_BADGE_CLASS: Record<EnquiryStatus, string> = {
   3: "badge-followup",
   4: "badge-converted",
   5: "badge-closed",
+  6: "badge-qualified",
+  7: "badge-proposal",
 };
 
 export const EnquirySource = {
@@ -81,6 +89,24 @@ export const EnquirySource = {
   Other: 5,
 } as const;
 export type EnquirySource = (typeof EnquirySource)[keyof typeof EnquirySource];
+
+export const ENQUIRY_SOURCE_LABELS: Record<EnquirySource, string> = {
+  0: "Website",
+  1: "Contact Page",
+  2: "Society Page",
+  3: "Education Page",
+  4: "Home Page",
+  5: "Other",
+};
+
+export const ENQUIRY_SOURCE_LABELS_BY_NAME: Record<string, string> = {
+  Website: "Website",
+  ContactPage: "Contact Page",
+  SocietyPage: "Society Page",
+  EducationPage: "Education Page",
+  HomePage: "Home Page",
+  Other: "Other",
+};
 
 export interface CreateEnquiryRequest {
   fullName: string;
@@ -113,7 +139,9 @@ export interface EnquiryListItem {
   organizationName?: string;
   city?: string;
   productInterestedIn: ProductInterest;
+  enquirySource: EnquirySource;
   status: EnquiryStatus;
+  nextFollowUpDate?: string;
   createdAt: string;
 }
 
@@ -128,7 +156,6 @@ export interface EnquiryDetail extends EnquiryListItem {
   organizationType?: string;
   preferredContactMethod?: PreferredContactMethod;
   message?: string;
-  enquirySource: EnquirySource;
   assignedTo?: string;
   updatedAt: string;
   notes: EnquiryNote[];
@@ -145,7 +172,10 @@ export interface PagedResult<T> {
 export interface DashboardSummary {
   totalEnquiries: number;
   newEnquiries: number;
+  followUpsDueToday: number;
+  overdueFollowUps: number;
   enquiriesByProduct: Record<string, number>;
   enquiriesByStatus: Record<string, number>;
+  enquiriesBySource: Record<string, number>;
   recentEnquiries: EnquiryListItem[];
 }

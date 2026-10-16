@@ -19,12 +19,17 @@ export default function AdminEnquiryDetailPage() {
   const [newNote, setNewNote] = useState("");
   const [isSavingNote, setIsSavingNote] = useState(false);
   const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
+  const [followUpDraft, setFollowUpDraft] = useState("");
+  const [isSavingFollowUp, setIsSavingFollowUp] = useState(false);
 
   const loadEnquiry = () => {
     setIsLoading(true);
     api
       .get<EnquiryDetail>(`/api/enquiries/${id}`, true)
-      .then(setEnquiry)
+      .then((data) => {
+        setEnquiry(data);
+        setFollowUpDraft(data.nextFollowUpDate ? data.nextFollowUpDate.slice(0, 10) : "");
+      })
       .catch(() => setError("Unable to load enquiry details."))
       .finally(() => setIsLoading(false));
   };
@@ -44,6 +49,23 @@ export default function AdminEnquiryDetailPage() {
       setError(err instanceof ApiError ? err.message : "Unable to update status.");
     } finally {
       setIsUpdatingStatus(false);
+    }
+  };
+
+  const onSaveFollowUp = async () => {
+    if (!enquiry) return;
+    setIsSavingFollowUp(true);
+    try {
+      const updated = await api.patch<EnquiryDetail>(
+        `/api/enquiries/${enquiry.enquiryId}/status`,
+        { status: enquiry.status, nextFollowUpDate: followUpDraft ? new Date(followUpDraft).toISOString() : null },
+        true
+      );
+      setEnquiry(updated);
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : "Unable to update follow-up date.");
+    } finally {
+      setIsSavingFollowUp(false);
     }
   };
 
@@ -119,6 +141,10 @@ export default function AdminEnquiryDetailPage() {
             <div><dt>Message</dt><dd>{enquiry.message ?? "-"}</dd></div>
             <div><dt>Submitted</dt><dd>{new Date(enquiry.createdAt).toLocaleString("en-IN")}</dd></div>
             <div><dt>Last Updated</dt><dd>{new Date(enquiry.updatedAt).toLocaleString("en-IN")}</dd></div>
+            <div>
+              <dt>Next Follow-up</dt>
+              <dd>{enquiry.nextFollowUpDate ? new Date(enquiry.nextFollowUpDate).toLocaleDateString("en-IN") : "Not scheduled"}</dd>
+            </div>
           </dl>
         </div>
 
@@ -135,6 +161,21 @@ export default function AdminEnquiryDetailPage() {
                 <option key={value} value={value}>{label}</option>
               ))}
             </select>
+          </div>
+
+          <div className="card">
+            <h3 style={{ marginBottom: "var(--space-4)", fontSize: "var(--fs-lg)" }}>Next Follow-up Date</h3>
+            <div style={{ display: "flex", gap: "var(--space-3)" }}>
+              <input
+                type="date"
+                className="form-input"
+                value={followUpDraft}
+                onChange={(e) => setFollowUpDraft(e.target.value)}
+              />
+              <button className="btn btn-secondary btn-sm" onClick={onSaveFollowUp} disabled={isSavingFollowUp}>
+                {isSavingFollowUp ? <span className="spinner spinner-dark" /> : "Save"}
+              </button>
+            </div>
           </div>
 
           <div className="card">

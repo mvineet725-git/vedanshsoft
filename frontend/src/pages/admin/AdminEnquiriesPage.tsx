@@ -6,6 +6,7 @@ import {
   ENQUIRY_STATUS_BADGE_CLASS,
   ENQUIRY_STATUS_LABELS,
   PRODUCT_INTEREST_LABELS,
+  EnquirySource,
   EnquiryStatus,
   ProductInterest,
   type EnquiryListItem,
@@ -16,6 +17,7 @@ export default function AdminEnquiriesPage() {
   const [search, setSearch] = useState("");
   const [product, setProduct] = useState<string>("");
   const [status, setStatus] = useState<string>("");
+  const [source, setSource] = useState<string>("");
   const [city, setCity] = useState("");
   const [page, setPage] = useState(1);
   const [result, setResult] = useState<PagedResult<EnquiryListItem> | null>(null);
@@ -28,6 +30,7 @@ export default function AdminEnquiriesPage() {
     if (search) params.set("search", search);
     if (product) params.set("product", product);
     if (status) params.set("status", status);
+    if (source) params.set("source", source);
     if (city) params.set("city", city);
     params.set("page", String(page));
     params.set("pageSize", "20");
@@ -37,7 +40,7 @@ export default function AdminEnquiriesPage() {
       .then(setResult)
       .catch(() => setError("Unable to load enquiries."))
       .finally(() => setIsLoading(false));
-  }, [search, product, status, city, page]);
+  }, [search, product, status, source, city, page]);
 
   const onExport = () => {
     const token = authStorage.getToken();
@@ -90,7 +93,9 @@ export default function AdminEnquiriesPage() {
               <option value="">All Statuses</option>
               <option value={EnquiryStatus.New}>New</option>
               <option value={EnquiryStatus.Contacted}>Contacted</option>
+              <option value={EnquiryStatus.Qualified}>Qualified</option>
               <option value={EnquiryStatus.DemoScheduled}>Demo Scheduled</option>
+              <option value={EnquiryStatus.Proposal}>Proposal/Quotation</option>
               <option value={EnquiryStatus.FollowUpRequired}>Follow-up Required</option>
               <option value={EnquiryStatus.Converted}>Converted</option>
               <option value={EnquiryStatus.Closed}>Closed</option>
@@ -99,6 +104,20 @@ export default function AdminEnquiriesPage() {
           <div className="form-field" style={{ marginBottom: 0 }}>
             <label className="form-label" htmlFor="city">City</label>
             <input id="city" className="form-input" value={city} onChange={(e) => { setCity(e.target.value); setPage(1); }} />
+          </div>
+        </div>
+        <div className="grid grid-4" style={{ marginTop: "var(--space-4)" }}>
+          <div className="form-field" style={{ marginBottom: 0 }}>
+            <label className="form-label" htmlFor="source">Source</label>
+            <select id="source" className="form-select" value={source} onChange={(e) => { setSource(e.target.value); setPage(1); }}>
+              <option value="">All Sources</option>
+              <option value={EnquirySource.Website}>Website</option>
+              <option value={EnquirySource.ContactPage}>Contact Page</option>
+              <option value={EnquirySource.SocietyPage}>Society Page</option>
+              <option value={EnquirySource.EducationPage}>Education Page</option>
+              <option value={EnquirySource.HomePage}>Home Page</option>
+              <option value={EnquirySource.Other}>Other</option>
+            </select>
           </div>
         </div>
       </div>
@@ -117,28 +136,39 @@ export default function AdminEnquiriesPage() {
                 <th>City</th>
                 <th>Product</th>
                 <th>Status</th>
+                <th>Next Follow-up</th>
                 <th>Date</th>
               </tr>
             </thead>
             <tbody>
               {isLoading && (
-                <tr><td colSpan={8} className="empty-state"><span className="spinner spinner-dark" /></td></tr>
+                <tr><td colSpan={9} className="empty-state"><span className="spinner spinner-dark" /></td></tr>
               )}
               {!isLoading && result?.items.length === 0 && (
-                <tr><td colSpan={8} className="empty-state">No enquiries match your filters.</td></tr>
+                <tr><td colSpan={9} className="empty-state">No enquiries match your filters.</td></tr>
               )}
-              {!isLoading && result?.items.map((enquiry) => (
-                <tr key={enquiry.enquiryId}>
-                  <td><Link to={`/admin/enquiries/${enquiry.enquiryId}`}>{enquiry.enquiryReferenceNumber}</Link></td>
-                  <td>{enquiry.fullName}</td>
-                  <td>{enquiry.mobileNumber}</td>
-                  <td>{enquiry.organizationName ?? "-"}</td>
-                  <td>{enquiry.city ?? "-"}</td>
-                  <td>{PRODUCT_INTEREST_LABELS[enquiry.productInterestedIn]}</td>
-                  <td><span className={`badge ${ENQUIRY_STATUS_BADGE_CLASS[enquiry.status]}`}>{ENQUIRY_STATUS_LABELS[enquiry.status]}</span></td>
-                  <td>{new Date(enquiry.createdAt).toLocaleDateString("en-IN")}</td>
-                </tr>
-              ))}
+              {!isLoading && result?.items.map((enquiry) => {
+                const isOverdue =
+                  !!enquiry.nextFollowUpDate &&
+                  new Date(enquiry.nextFollowUpDate) < new Date() &&
+                  enquiry.status !== EnquiryStatus.Converted &&
+                  enquiry.status !== EnquiryStatus.Closed;
+                return (
+                  <tr key={enquiry.enquiryId}>
+                    <td><Link to={`/admin/enquiries/${enquiry.enquiryId}`}>{enquiry.enquiryReferenceNumber}</Link></td>
+                    <td>{enquiry.fullName}</td>
+                    <td>{enquiry.mobileNumber}</td>
+                    <td>{enquiry.organizationName ?? "-"}</td>
+                    <td>{enquiry.city ?? "-"}</td>
+                    <td>{PRODUCT_INTEREST_LABELS[enquiry.productInterestedIn]}</td>
+                    <td><span className={`badge ${ENQUIRY_STATUS_BADGE_CLASS[enquiry.status]}`}>{ENQUIRY_STATUS_LABELS[enquiry.status]}</span></td>
+                    <td style={isOverdue ? { color: "var(--color-danger)", fontWeight: 600 } : undefined}>
+                      {enquiry.nextFollowUpDate ? new Date(enquiry.nextFollowUpDate).toLocaleDateString("en-IN") : "-"}
+                    </td>
+                    <td>{new Date(enquiry.createdAt).toLocaleDateString("en-IN")}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

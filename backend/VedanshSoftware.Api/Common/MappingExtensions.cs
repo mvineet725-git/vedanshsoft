@@ -29,6 +29,7 @@ public static class MappingExtensions
         EnquirySource = enquiry.EnquirySource,
         Status = enquiry.Status,
         AssignedTo = enquiry.AssignedTo,
+        NextFollowUpDate = enquiry.NextFollowUpDate,
         CreatedAt = enquiry.CreatedAt,
         UpdatedAt = enquiry.UpdatedAt,
         Notes = enquiry.Notes.Select(n => new EnquiryNoteResponse

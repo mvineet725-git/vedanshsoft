@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import AdminLayout from "./AdminLayout";
 import { api } from "../../lib/api";
 import {
+  ENQUIRY_SOURCE_LABELS_BY_NAME,
   ENQUIRY_STATUS_BADGE_CLASS,
   ENQUIRY_STATUS_LABELS,
   ENQUIRY_STATUS_LABELS_BY_NAME,
@@ -61,7 +62,18 @@ export default function AdminDashboardPage() {
             </div>
           </div>
 
-          <div className="grid grid-2" style={{ marginBottom: "var(--space-7)", alignItems: "start" }}>
+          <div className="grid grid-2" style={{ marginBottom: "var(--space-7)" }}>
+            <div className="stat-card" style={{ borderColor: summary.followUpsDueToday > 0 ? "var(--color-warning)" : undefined }}>
+              <span className="stat-value">{summary.followUpsDueToday}</span>
+              <span className="stat-label">Follow-ups Due Today</span>
+            </div>
+            <div className="stat-card" style={{ borderColor: summary.overdueFollowUps > 0 ? "var(--color-danger)" : undefined }}>
+              <span className="stat-value">{summary.overdueFollowUps}</span>
+              <span className="stat-label">Overdue Follow-ups</span>
+            </div>
+          </div>
+
+          <div className="grid grid-3" style={{ marginBottom: "var(--space-7)", alignItems: "start" }}>
             <div className="card">
               <h3 style={{ marginBottom: "var(--space-4)", fontSize: "var(--fs-lg)" }}>Enquiries by Product</h3>
               <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
@@ -80,6 +92,18 @@ export default function AdminDashboardPage() {
                 {Object.entries(summary.enquiriesByStatus).map(([key, count]) => (
                   <div key={key} style={{ display: "flex", justifyContent: "space-between", fontSize: "var(--fs-sm)" }}>
                     <span>{ENQUIRY_STATUS_LABELS_BY_NAME[key] ?? key}</span>
+                    <strong>{count}</strong>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="card">
+              <h3 style={{ marginBottom: "var(--space-4)", fontSize: "var(--fs-lg)" }}>Enquiries by Source</h3>
+              <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
+                {Object.entries(summary.enquiriesBySource).map(([key, count]) => (
+                  <div key={key} style={{ display: "flex", justifyContent: "space-between", fontSize: "var(--fs-sm)" }}>
+                    <span>{ENQUIRY_SOURCE_LABELS_BY_NAME[key] ?? key}</span>
                     <strong>{count}</strong>
                   </div>
                 ))}

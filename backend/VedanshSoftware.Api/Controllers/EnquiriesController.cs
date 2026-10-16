@@ -82,6 +82,7 @@ public class EnquiriesController : ControllerBase
         [FromQuery] string? search,
         [FromQuery] ProductInterest? product,
         [FromQuery] EnquiryStatus? status,
+        [FromQuery] EnquirySource? source,
         [FromQuery] string? city,
         [FromQuery] DateTime? fromDate,
         [FromQuery] DateTime? toDate,
@@ -89,7 +90,7 @@ public class EnquiriesController : ControllerBase
         [FromQuery] int pageSize = 20,
         CancellationToken ct = default)
     {
-        var result = await _enquiryService.SearchAsync(search, product, status, city, fromDate, toDate, page, pageSize, ct);
+        var result = await _enquiryService.SearchAsync(search, product, status, source, city, fromDate, toDate, page, pageSize, ct);
         return Ok(result);
     }
 

@@ -24,7 +24,9 @@ public enum EnquiryStatus
     DemoScheduled = 2,
     FollowUpRequired = 3,
     Converted = 4,
-    Closed = 5
+    Closed = 5,
+    Qualified = 6,
+    Proposal = 7
 }
 
 public enum EnquirySource
@@ -77,6 +79,8 @@ public class ContactEnquiry
 
     [MaxLength(450)]
     public string? AssignedTo { get; set; }
+
+    public DateTime? NextFollowUpDate { get; set; }
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 

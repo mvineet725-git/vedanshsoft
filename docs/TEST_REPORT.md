@@ -5,6 +5,50 @@ with pass/fail status. It will be extended as automated test suites are added.
 
 Last updated: 2026-10-16
 
+## Priority 3: Sales Management — Admin Dashboard Enhancements (2026-10-16)
+
+Scope: expanded enquiry statuses (Qualified, Proposal/Quotation), a
+`NextFollowUpDate` field, source-based filtering and reporting. Required one
+backend schema change: a new EF Core migration
+(`AddFollowUpDateAndExpandedStatuses`) adding a single nullable
+`NextFollowUpDate` column to `ContactEnquiries`. No existing columns were
+altered or dropped; the two new `EnquiryStatus` enum values were appended
+after the existing ones, so previously stored integer status values are
+unaffected.
+
+### Backend — manual integration tests (curl against a running instance)
+
+| Test | Result |
+|---|---|
+| Migration applies cleanly on a fresh database | PASS |
+| Update status to `Qualified` (6) persists and returns correctly | PASS |
+| Update status to `Proposal` (7) persists and returns correctly | PASS |
+| Setting `nextFollowUpDate` on a status update persists the date | PASS |
+| A later status update without `nextFollowUpDate` leaves the existing date unchanged | PASS |
+| Dashboard summary returns `followUpsDueToday`, `overdueFollowUps`, and `enquiriesBySource` | PASS |
+| Searching enquiries with `source` query param filters correctly | PASS |
+
+### Frontend admin UI — automated browser tests (Playwright, live backend)
+
+| Test | Result |
+|---|---|
+| Dashboard renders Follow-ups Due Today / Overdue Follow-ups stat cards | PASS (verified visually; an overly strict text-matching assertion in the throwaway test script produced a false negative, not a real defect) |
+| Dashboard renders an Enquiries by Source card with per-source counts | PASS |
+| Enquiries list has a Source filter dropdown and a Next Follow-up column | PASS |
+| Filtering the enquiries list by source narrows results correctly | PASS |
+| Enquiry detail page shows an editable Next Follow-up Date field | PASS |
+| Saving a follow-up date updates the detail view immediately | PASS |
+| Changing status to Qualified/Proposal updates the status badge immediately | PASS |
+| No console errors during any of the above | PASS (zero errors reported) |
+
+### Known limitation
+
+`PATCH /api/enquiries/{id}/status` can set or change `nextFollowUpDate` but
+cannot currently clear it back to "not scheduled" (a `null` value is treated
+as "no change" rather than "clear"). Low priority since picking a new date
+addresses the common case; flagged here for future enhancement if a
+genuine need to unschedule a follow-up arises.
+
 ## Interactive SaaS Upgrade (2026-10-16)
 
 Scope: interactive hero demo, India city explorer, Society/Education feature

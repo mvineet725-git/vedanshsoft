@@ -64,7 +64,9 @@ public class EnquiryListItemResponse
     public string? OrganizationName { get; set; }
     public string? City { get; set; }
     public ProductInterest ProductInterestedIn { get; set; }
+    public EnquirySource EnquirySource { get; set; }
     public EnquiryStatus Status { get; set; }
+    public DateTime? NextFollowUpDate { get; set; }
     public DateTime CreatedAt { get; set; }
 }
 
@@ -73,7 +75,6 @@ public class EnquiryDetailResponse : EnquiryListItemResponse
     public string? OrganizationType { get; set; }
     public PreferredContactMethod? PreferredContactMethod { get; set; }
     public string? Message { get; set; }
-    public EnquirySource EnquirySource { get; set; }
     public string? AssignedTo { get; set; }
     public DateTime UpdatedAt { get; set; }
     public List<EnquiryNoteResponse> Notes { get; set; } = new();
@@ -94,6 +95,8 @@ public class UpdateEnquiryStatusRequest
 
     [MaxLength(450)]
     public string? AssignedTo { get; set; }
+
+    public DateTime? NextFollowUpDate { get; set; }
 }
 
 public class AddEnquiryNoteRequest
@@ -116,7 +119,10 @@ public class EnquiryDashboardSummary
 {
     public int TotalEnquiries { get; set; }
     public int NewEnquiries { get; set; }
+    public int FollowUpsDueToday { get; set; }
+    public int OverdueFollowUps { get; set; }
     public Dictionary<string, int> EnquiriesByProduct { get; set; } = new();
     public Dictionary<string, int> EnquiriesByStatus { get; set; } = new();
+    public Dictionary<string, int> EnquiriesBySource { get; set; } = new();
     public List<EnquiryListItemResponse> RecentEnquiries { get; set; } = new();
 }

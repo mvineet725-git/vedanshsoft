@@ -83,17 +83,25 @@ Returns the current authenticated user's email and roles.
 ### `GET /api/enquiries`
 
 Search/paginate enquiries. Query params: `search`, `product`, `status`,
-`city`, `fromDate`, `toDate`, `page` (default 1), `pageSize` (default 20, max 100).
+`source`, `city`, `fromDate`, `toDate`, `page` (default 1), `pageSize` (default 20, max 100).
+
+- `status`: 0 = New, 1 = Contacted, 2 = DemoScheduled, 3 = FollowUpRequired,
+  4 = Converted, 5 = Closed, 6 = Qualified, 7 = Proposal
+- `source`: same values as `enquirySource` above
 
 ### `GET /api/enquiries/{id}`
 
-Full enquiry detail including notes.
+Full enquiry detail including notes and `nextFollowUpDate`.
 
 ### `PATCH /api/enquiries/{id}/status`
 
 ```json
-{ "status": 1, "assignedTo": "sales-team@example.com" }
+{ "status": 6, "assignedTo": "sales-team@example.com", "nextFollowUpDate": "2026-11-01T00:00:00Z" }
 ```
+
+`nextFollowUpDate` is only updated when a value is supplied; omitting it
+leaves the existing follow-up date unchanged (it cannot currently be cleared
+via this endpoint — pick a new date instead).
 
 ### `POST /api/enquiries/{id}/notes`
 
@@ -103,7 +111,8 @@ Full enquiry detail including notes.
 
 ### `GET /api/admin/dashboard-summary`
 
-Returns total/new counts, breakdowns by product and status, and the 10 most
+Returns total/new counts, follow-up counts (`followUpsDueToday`,
+`overdueFollowUps`), breakdowns by product/status/source, and the 10 most
 recent enquiries.
 
 ### `GET /api/admin/enquiries/export`
