@@ -62,6 +62,8 @@ export default function MultiStepEnquiryForm({
       ? ProductInterest.SocietyManagementSoftware
       : productParam === "education"
       ? ProductInterest.EducationManagementSoftware
+      : productParam === "custom"
+      ? ProductInterest.CustomSoftwareDevelopment
       : ProductInterest.SocietyManagementSoftware);
 
   const steps = lockProduct ? STEPS.slice(1) : STEPS;
@@ -85,6 +87,7 @@ export default function MultiStepEnquiryForm({
     defaultValues: {
       productInterestedIn: String(resolvedDefaultProduct),
       city: defaultCity ?? searchParams.get("city") ?? "",
+      message: searchParams.get("note") ?? "",
       consentAccepted: undefined,
       preferredContactMethod: "",
       websiteUrl: "",

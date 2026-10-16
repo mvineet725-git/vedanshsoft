@@ -4,8 +4,10 @@ import Seo from "../components/Seo";
 import DashboardMockup from "../components/DashboardMockup";
 import FeatureExplorer from "../components/FeatureExplorer";
 import InstitutionTypeSelector from "../components/InstitutionTypeSelector";
+import PersonaMessaging from "../components/PersonaMessaging";
 import MultiStepEnquiryForm from "../components/MultiStepEnquiryForm";
 import { EDUCATION_EXPLORER_FEATURES } from "../data/educationFeatures";
+import { EDUCATION_PERSONAS } from "../data/personas";
 import { EnquirySource, ProductInterest } from "../types/enquiry";
 import "./SolutionPage.css";
 
@@ -92,6 +94,19 @@ export default function EducationManagementPage() {
               product direction; please confirm specific feature availability with our team before purchase.
             </p>
           </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <div className="section-head" style={{ margin: "0 auto var(--space-7)", textAlign: "center" }}>
+            <span className="eyebrow">Built for Every Role</span>
+            <h2>What Matters to You Depends on Your Role</h2>
+            <p className="text-muted" style={{ marginTop: "var(--space-4)" }}>
+              Select your role to see what's most relevant to you.
+            </p>
+          </div>
+          <PersonaMessaging personas={EDUCATION_PERSONAS} />
         </div>
       </section>
 

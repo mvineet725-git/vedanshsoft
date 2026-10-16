@@ -1,0 +1,99 @@
+.solution-finder {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-7);
+  box-shadow: var(--shadow-md);
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.solution-finder-progress {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.solution-finder-progress-dot {
+  flex: 1;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--color-border);
+}
+
+.solution-finder-progress-dot.is-complete {
+  background: var(--color-teal-500);
+}
+
+.solution-finder-question {
+  font-size: var(--fs-xl);
+  margin-bottom: var(--space-5);
+}
+
+.solution-finder-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.solution-finder-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: #fff;
+  text-align: left;
+  font-weight: 600;
+  font-size: var(--fs-base);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.solution-finder-option:hover {
+  border-color: var(--color-teal-400);
+}
+
+.solution-finder-option svg {
+  color: var(--color-text-subtle);
+  flex-shrink: 0;
+}
+
+.solution-finder-back {
+  margin-top: var(--space-5);
+}
+
+.solution-finder-result {
+  text-align: center;
+}
+
+.solution-finder-result-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--color-success-bg);
+  color: var(--color-teal-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-5);
+}
+
+.solution-finder-result h3 {
+  margin-bottom: var(--space-3);
+}
+
+.solution-finder-result-actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.solution-finder-disclaimer {
+  margin-top: var(--space-5);
+  font-size: var(--fs-xs);
+  color: var(--color-text-subtle);
+}

@@ -5,6 +5,8 @@ import SolutionCard from "../components/SolutionCard";
 import FeatureCard from "../components/FeatureCard";
 import InteractiveHeroDemo from "../components/InteractiveHeroDemo";
 import TrustSection from "../components/TrustSection";
+import ProblemsWeSolve from "../components/ProblemsWeSolve";
+import SolutionFinder from "../components/SolutionFinder";
 import CityExplorer from "../components/CityExplorer";
 import BeforeAfterComparison from "../components/BeforeAfterComparison";
 import TestimonialsOrExplore from "../components/TestimonialsOrExplore";
@@ -160,6 +162,16 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="section">
+        <div className="container">
+          <div className="section-head" style={{ margin: "0 auto var(--space-7)", textAlign: "center" }}>
+            <span className="eyebrow">Problems We Help Solve</span>
+            <h2>Common Challenges, and How We Help</h2>
+          </div>
+          <ProblemsWeSolve />
+        </div>
+      </section>
+
       <section className="section industries-section">
         <div className="container">
           <div className="section-head" style={{ margin: "0 auto var(--space-7)", textAlign: "center" }}>
@@ -285,6 +297,19 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="section solution-finder-section">
+        <div className="container">
+          <div className="section-head" style={{ margin: "0 auto var(--space-7)", textAlign: "center" }}>
+            <span className="eyebrow">Not Sure Where to Start?</span>
+            <h2>Find the Right Solution in Under a Minute</h2>
+            <p className="text-muted" style={{ marginTop: "var(--space-4)" }}>
+              Answer two quick questions and we'll point you to the most relevant solution.
+            </p>
+          </div>
+          <SolutionFinder />
+        </div>
+      </section>
+
       <section className="section final-cta-section">
         <div className="container final-cta-grid">
           <div>
@@ -292,6 +317,9 @@ export default function HomePage() {
             <p style={{ color: "#cbd8ea", marginTop: "var(--space-3)", maxWidth: "480px" }}>
               Request a free, no-obligation demo and see how our software fits your society or institution.
             </p>
+            <Link to="/pricing" className="btn btn-secondary" style={{ borderColor: "#fff", color: "#fff", marginTop: "var(--space-5)" }}>
+              Request Pricing Instead
+            </Link>
           </div>
           <div id="demo-form">
             <MultiStepEnquiryForm source={EnquirySource.HomePage} defaultProduct={ProductInterest.SocietyManagementSoftware} />

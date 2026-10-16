@@ -3,8 +3,10 @@ import Layout from "../components/Layout";
 import Seo from "../components/Seo";
 import DashboardMockup from "../components/DashboardMockup";
 import FeatureExplorer from "../components/FeatureExplorer";
+import PersonaMessaging from "../components/PersonaMessaging";
 import MultiStepEnquiryForm from "../components/MultiStepEnquiryForm";
 import { SOCIETY_EXPLORER_FEATURES } from "../data/societyFeatures";
+import { SOCIETY_PERSONAS } from "../data/personas";
 import { EnquirySource, ProductInterest } from "../types/enquiry";
 import "./SolutionPage.css";
 
@@ -84,6 +86,19 @@ export default function SocietyManagementPage() {
               product direction; please confirm specific feature availability with our team before purchase.
             </p>
           </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <div className="section-head" style={{ margin: "0 auto var(--space-7)", textAlign: "center" }}>
+            <span className="eyebrow">Built for Every Role</span>
+            <h2>What Matters to You Depends on Your Role</h2>
+            <p className="text-muted" style={{ marginTop: "var(--space-4)" }}>
+              Select your role in the society to see what's most relevant to you.
+            </p>
+          </div>
+          <PersonaMessaging personas={SOCIETY_PERSONAS} />
         </div>
       </section>
 

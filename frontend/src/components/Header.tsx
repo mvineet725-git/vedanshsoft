@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { to: "/about", label: "About Us" },
   { to: "/solutions", label: "Our Solutions" },
   { to: "/industries", label: "Industries" },
+  { to: "/pricing", label: "Pricing" },
   { to: "/contact", label: "Contact Us" },
 ];
 
