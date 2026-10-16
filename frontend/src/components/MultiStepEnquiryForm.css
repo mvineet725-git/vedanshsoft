@@ -1,0 +1,190 @@
+.ms-form {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-md);
+}
+
+.ms-form-head {
+  margin-bottom: var(--space-5);
+}
+
+.ms-form-head h3 {
+  margin-bottom: var(--space-2);
+}
+
+.ms-steps {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--space-6);
+}
+
+.ms-step {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.ms-step:last-child {
+  flex: 0;
+}
+
+.ms-step-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  background: var(--color-bg-alt);
+  color: var(--color-text-subtle);
+  border: 2px solid var(--color-border);
+  flex-shrink: 0;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.ms-step.is-active .ms-step-circle {
+  background: var(--color-navy-900);
+  border-color: var(--color-navy-900);
+  color: #fff;
+}
+
+.ms-step.is-complete .ms-step-circle {
+  background: var(--color-teal-500);
+  border-color: var(--color-teal-500);
+  color: #fff;
+}
+
+.ms-step-label {
+  margin-left: var(--space-2);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--color-text-subtle);
+  white-space: nowrap;
+}
+
+.ms-step.is-active .ms-step-label {
+  color: var(--color-navy-900);
+}
+
+.ms-step-connector {
+  height: 2px;
+  background: var(--color-border);
+  flex: 1;
+  margin-inline: var(--space-2);
+}
+
+.ms-step.is-complete + .ms-step-connector-wrap .ms-step-connector,
+.ms-step-connector.is-complete {
+  background: var(--color-teal-500);
+}
+
+@media (max-width: 640px) {
+  .ms-step-label {
+    display: none;
+  }
+}
+
+.ms-form-body {
+  min-height: 220px;
+}
+
+.ms-form-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.ms-form-actions .btn-block {
+  flex: 1;
+}
+
+.ms-review-section {
+  margin-bottom: var(--space-5);
+}
+
+.ms-review-section h4 {
+  font-size: var(--fs-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-subtle);
+  margin-bottom: var(--space-3);
+}
+
+.ms-review-row {
+  display: flex;
+  justify-content: space-between;
+  padding-block: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--fs-sm);
+}
+
+.ms-review-row dt {
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.ms-review-row dd {
+  margin: 0;
+  text-align: right;
+  max-width: 60%;
+}
+
+.ms-option-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+@media (max-width: 560px) {
+  .ms-option-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ms-option-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  cursor: pointer;
+  background: #fff;
+  text-align: left;
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.ms-option-card:hover {
+  border-color: var(--color-teal-400);
+}
+
+.ms-option-card.is-selected {
+  border-color: var(--color-teal-500);
+  background: var(--color-success-bg);
+}
+
+.ms-option-card svg {
+  color: var(--color-teal-600);
+  flex-shrink: 0;
+}
+
+.ms-confirmation-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.ms-confirmation-contacts .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}

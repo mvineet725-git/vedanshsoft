@@ -94,6 +94,21 @@
   background: var(--color-bg-alt);
 }
 
+.solutions-explore-cta {
+  text-align: center;
+  margin-top: var(--space-8);
+  padding-top: var(--space-7);
+  border-top: 1px solid var(--color-border);
+}
+
+.solutions-explore-links {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-5);
+  margin-top: var(--space-3);
+  flex-wrap: wrap;
+}
+
 .solution-cta-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

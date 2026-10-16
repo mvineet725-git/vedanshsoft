@@ -1,6 +1,6 @@
 import Layout from "../components/Layout";
 import Seo from "../components/Seo";
-import FaqAccordion from "../components/FaqAccordion";
+import SearchableFaq from "../components/SearchableFaq";
 import { GENERAL_FAQS } from "../data/faqs";
 
 export default function FaqPage() {
@@ -18,8 +18,8 @@ export default function FaqPage() {
             <span className="eyebrow">FAQs</span>
             <h1>Frequently Asked Questions</h1>
           </div>
-          <div style={{ maxWidth: "760px", margin: "0 auto" }}>
-            <FaqAccordion items={GENERAL_FAQS} />
+          <div style={{ maxWidth: "820px", margin: "0 auto" }}>
+            <SearchableFaq items={GENERAL_FAQS} />
           </div>
         </div>
       </section>

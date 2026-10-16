@@ -1,11 +1,15 @@
 import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import Seo from "../components/Seo";
-import DashboardMockup from "../components/DashboardMockup";
 import SolutionCard from "../components/SolutionCard";
 import FeatureCard from "../components/FeatureCard";
-import FaqAccordion from "../components/FaqAccordion";
-import EnquiryForm from "../components/EnquiryForm";
+import InteractiveHeroDemo from "../components/InteractiveHeroDemo";
+import TrustSection from "../components/TrustSection";
+import CityExplorer from "../components/CityExplorer";
+import BeforeAfterComparison from "../components/BeforeAfterComparison";
+import TestimonialsOrExplore from "../components/TestimonialsOrExplore";
+import SearchableFaq from "../components/SearchableFaq";
+import MultiStepEnquiryForm from "../components/MultiStepEnquiryForm";
 import Icon from "../components/Icon";
 import { GENERAL_FAQS } from "../data/faqs";
 import { EnquirySource, ProductInterest } from "../types/enquiry";
@@ -57,7 +61,7 @@ export default function HomePage() {
     <Layout>
       <Seo
         title="Vedansh Software Services | Society & Education Management Software"
-        description="Smart society management and education management software for Indian housing societies, schools, and coaching institutes. Request a free demo today."
+        description="Smart software for smarter communities and educational institutions. Explore an interactive demo of our society and education management software and request a free demo today."
         canonicalPath="/"
       />
       <script type="application/ld+json">
@@ -77,23 +81,29 @@ export default function HomePage() {
         <div className="container hero-grid">
           <div className="hero-copy">
             <span className="eyebrow">Software for Communities & Institutions</span>
-            <h1>Smart Software Solutions for Smarter Communities and Institutions</h1>
+            <h1>Smart Software for Smarter Communities and Educational Institutions</h1>
             <p className="hero-sub">
-              Manage your residential society and educational institution with practical, modern software
-              designed to simplify operations, improve transparency, and save valuable time.
+              Manage your society or educational institution with modern software designed to simplify
+              daily operations, improve visibility, and save administrative time.
             </p>
             <div className="hero-ctas">
-              <Link to="/contact?demo=true" className="btn btn-primary">
-                Request a Free Demo
-              </Link>
-              <Link to="/solutions" className="btn btn-secondary">
+              <Link to="/solutions" className="btn btn-primary">
                 Explore Our Solutions
+              </Link>
+              <Link to="/contact?demo=true" className="btn btn-secondary">
+                Request a Demo
               </Link>
             </div>
           </div>
-          <div className="hero-visual" aria-hidden="false">
-            <DashboardMockup />
+          <div className="hero-visual-wrap">
+            <InteractiveHeroDemo />
           </div>
+        </div>
+      </section>
+
+      <section className="section trust-band">
+        <div className="container">
+          <TrustSection />
         </div>
       </section>
 
@@ -154,6 +164,20 @@ export default function HomePage() {
       <section className="section">
         <div className="container">
           <div className="section-head" style={{ margin: "0 auto var(--space-7)", textAlign: "center" }}>
+            <span className="eyebrow">Example Markets</span>
+            <h2>Software Solutions for Communities and Institutions Across India</h2>
+            <p className="text-muted" style={{ marginTop: "var(--space-4)" }}>
+              Explore example cities to see how our solutions could support organizations there. These
+              are illustrative target markets, not a list of confirmed deployments.
+            </p>
+          </div>
+          <CityExplorer />
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <div className="section-head" style={{ margin: "0 auto var(--space-7)", textAlign: "center" }}>
             <span className="eyebrow">Key Benefits</span>
             <h2>Why Organizations Choose Our Software</h2>
           </div>
@@ -193,6 +217,18 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="section comparison-section">
+        <div className="container">
+          <div className="section-head" style={{ margin: "0 auto var(--space-7)", textAlign: "center" }}>
+            <span className="eyebrow">Manual vs. Software-Assisted</span>
+            <h2>See the Difference Digitizing Your Operations Can Make</h2>
+          </div>
+          <div style={{ maxWidth: "720px", margin: "0 auto" }}>
+            <BeforeAfterComparison />
+          </div>
+        </div>
+      </section>
+
       <section className="section process-section">
         <div className="container">
           <div className="section-head" style={{ margin: "0 auto var(--space-7)", textAlign: "center" }}>
@@ -214,11 +250,21 @@ export default function HomePage() {
       <section className="section">
         <div className="container">
           <div className="section-head" style={{ margin: "0 auto var(--space-7)", textAlign: "center" }}>
+            <span className="eyebrow">What You Can Explore</span>
+            <h2>See the Software in Action</h2>
+          </div>
+          <TestimonialsOrExplore />
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <div className="section-head" style={{ margin: "0 auto var(--space-7)", textAlign: "center" }}>
             <span className="eyebrow">FAQs</span>
             <h2>Frequently Asked Questions</h2>
           </div>
-          <div style={{ maxWidth: "760px", margin: "0 auto" }}>
-            <FaqAccordion items={GENERAL_FAQS} />
+          <div style={{ maxWidth: "820px", margin: "0 auto" }}>
+            <SearchableFaq items={GENERAL_FAQS} />
           </div>
         </div>
       </section>
@@ -232,7 +278,7 @@ export default function HomePage() {
             </p>
           </div>
           <div id="demo-form">
-            <EnquiryForm source={EnquirySource.HomePage} defaultProduct={ProductInterest.SocietyManagementSoftware} />
+            <MultiStepEnquiryForm source={EnquirySource.HomePage} defaultProduct={ProductInterest.SocietyManagementSoftware} />
           </div>
         </div>
       </section>

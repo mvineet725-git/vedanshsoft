@@ -1,0 +1,29 @@
+.testimonial-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.testimonial-quote {
+  font-size: var(--fs-base);
+  color: var(--color-text);
+  font-style: italic;
+  margin-bottom: var(--space-4);
+  flex-grow: 1;
+}
+
+.testimonial-attribution strong {
+  display: block;
+  color: var(--color-navy-900);
+}
+
+.explore-scenario-card {
+  display: block;
+}
+
+.explore-scenario-link {
+  display: inline-block;
+  margin-top: var(--space-3);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--color-royal-600);
+}

@@ -11,6 +11,8 @@ import EducationManagementPage from "./pages/EducationManagementPage";
 import IndustriesPage from "./pages/IndustriesPage";
 import ContactPage from "./pages/ContactPage";
 import FaqPage from "./pages/FaqPage";
+import SocietyDemoPage from "./pages/SocietyDemoPage";
+import EducationDemoPage from "./pages/EducationDemoPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfUsePage from "./pages/TermsOfUsePage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -43,6 +45,8 @@ export default function App() {
           <Route path="/industries" element={<IndustriesPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/faq" element={<FaqPage />} />
+          <Route path="/demo/society" element={<SocietyDemoPage />} />
+          <Route path="/demo/education" element={<EducationDemoPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="/terms-of-use" element={<TermsOfUsePage />} />
 

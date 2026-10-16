@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import Seo from "../components/Seo";
 import SolutionCard from "../components/SolutionCard";
@@ -51,6 +52,14 @@ export default function SolutionsOverviewPage() {
               ctaLabel="Explore Education Management"
               ctaTo="/solutions/education-management"
             />
+          </div>
+
+          <div className="solutions-explore-cta">
+            <p className="text-muted">Want to see it in action first?</p>
+            <div className="solutions-explore-links">
+              <Link to="/demo/society" className="btn btn-ghost btn-sm">Explore Society Demo &rarr;</Link>
+              <Link to="/demo/education" className="btn btn-ghost btn-sm">Explore Education Demo &rarr;</Link>
+            </div>
           </div>
         </div>
       </section>

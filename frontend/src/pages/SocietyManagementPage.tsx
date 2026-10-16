@@ -2,8 +2,9 @@ import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import Seo from "../components/Seo";
 import DashboardMockup from "../components/DashboardMockup";
-import FeatureCard from "../components/FeatureCard";
-import EnquiryForm from "../components/EnquiryForm";
+import FeatureExplorer from "../components/FeatureExplorer";
+import MultiStepEnquiryForm from "../components/MultiStepEnquiryForm";
+import { SOCIETY_EXPLORER_FEATURES } from "../data/societyFeatures";
 import { EnquirySource, ProductInterest } from "../types/enquiry";
 import "./SolutionPage.css";
 
@@ -13,64 +14,6 @@ const AUDIENCE = [
   "Residential Communities",
   "Society Management Committees",
   "Society Administrators & Property Managers",
-];
-
-const FEATURES = [
-  {
-    icon: "building" as const,
-    title: "Society & Flat Management",
-    description: "Maintain a structured record of wings, flats, and ownership details in one organized system.",
-  },
-  {
-    icon: "users" as const,
-    title: "Resident & Owner Records",
-    description: "Keep accurate, up-to-date records of residents and owners, reducing manual registers.",
-  },
-  {
-    icon: "wallet" as const,
-    title: "Maintenance Billing & Payment Tracking",
-    description: "Generate maintenance bills and track payments to improve collection and reduce follow-up effort.",
-  },
-  {
-    icon: "chart" as const,
-    title: "Income & Expense Management",
-    description: "Record society income and expenses in a structured way to support transparent financial reporting.",
-  },
-  {
-    icon: "message" as const,
-    title: "Complaints & Service Requests",
-    description: "Let residents raise complaints and service requests, and let committees track resolution status.",
-  },
-  {
-    icon: "bell" as const,
-    title: "Notices & Announcements",
-    description: "Share notices and announcements with residents quickly instead of relying on physical notice boards.",
-  },
-  {
-    icon: "shield" as const,
-    title: "Visitor & Facility Management",
-    description: "Support structured tracking of visitor entries and shared facility usage within the society premises.",
-  },
-  {
-    icon: "clipboard" as const,
-    title: "Committee & Staff Management",
-    description: "Maintain records of committee members and staff involved in society operations.",
-  },
-  {
-    icon: "chart" as const,
-    title: "Reports & Administrative Dashboards",
-    description: "Access summarized reports and dashboards for a clearer view of society operations.",
-  },
-  {
-    icon: "shield" as const,
-    title: "Role-Based Access",
-    description: "Control who can view or manage specific information based on their role within the society.",
-  },
-  {
-    icon: "mobile" as const,
-    title: "Mobile-Friendly Access",
-    description: "Use the software comfortably from phones and tablets, not just desktop computers.",
-  },
 ];
 
 export default function SocietyManagementPage() {
@@ -125,12 +68,15 @@ export default function SocietyManagementPage() {
           <div className="section-head" style={{ margin: "0 auto var(--space-7)", textAlign: "center" }}>
             <span className="eyebrow">Features & Benefits</span>
             <h2>Everything a Society Needs to Run Smoothly</h2>
+            <p className="text-muted" style={{ marginTop: "var(--space-4)" }}>
+              Select a category below to explore how each feature works.
+            </p>
           </div>
-          <div className="grid grid-3">
-            {FEATURES.map((feature) => (
-              <FeatureCard key={feature.title} {...feature} tone="teal" />
-            ))}
-          </div>
+          <FeatureExplorer
+            features={SOCIETY_EXPLORER_FEATURES}
+            demoLink="/demo/society"
+            demoLabel="Try This in the Interactive Demo"
+          />
           <div className="feature-note">
             <span>&#9432;</span>
             <p>
@@ -150,12 +96,12 @@ export default function SocietyManagementPage() {
               administration.
             </p>
           </div>
-          <EnquiryForm
+          <MultiStepEnquiryForm
             source={EnquirySource.SocietyPage}
             defaultProduct={ProductInterest.SocietyManagementSoftware}
             lockProduct
             title="Society Management Software Enquiry"
-            subtitle="Fill in your details and our team will reach out to schedule a demo."
+            subtitle="A few quick steps and our team will reach out to schedule a demo."
           />
         </div>
       </section>

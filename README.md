@@ -117,6 +117,33 @@ Once logged in at `/admin/login`, authorized staff can:
 - Add follow-up notes
 - Export all enquiries to CSV (Admin role only)
 
+## Interactive Site Features
+
+- **Interactive hero demo** (`components/InteractiveHeroDemo.tsx`) — Society/Education
+  tabs with illustrative sample dashboard metrics, clearly labeled as demo data.
+- **India city explorer** (`components/CityExplorer.tsx`) — searchable/filterable
+  example target markets; selecting a city and product deep-links to `/contact`
+  with both pre-filled. Labeled as illustrative markets, not confirmed coverage.
+- **Feature explorers** (`components/FeatureExplorer.tsx`) — category-based,
+  dynamically updating product feature walkthroughs for both Society
+  (`data/societyFeatures.ts`) and Education (`data/educationFeatures.ts`) pages.
+- **Public fictional demos** (`/demo/society`, `/demo/education`) — read-only,
+  clearly banner-labeled exploration of entirely fictional sample records
+  (`data/demoData.ts`). Not connected to the real database or admin system.
+- **Multi-step enquiry form** (`components/MultiStepEnquiryForm.tsx`) — a
+  4-step flow (Solution → Organization → Contact → Review) with a review
+  screen and contact-method buttons on the confirmation screen. Posts to the
+  same unchanged `/api/enquiries` endpoint as before.
+- **Searchable FAQ** (`components/SearchableFaq.tsx`) — keyword search plus
+  category filters over `data/faqs.ts`.
+- **Centralized illustrative-data config** (`data/siteContent.ts`,
+  `data/testimonials.ts`) — all sample statistics and the testimonials
+  section check a single `VERIFIED_METRICS` / `APPROVED_TESTIMONIALS` constant
+  first; when empty (the current state), components render honest
+  "illustrative data" / "explore a demo" messaging instead of fabricated
+  numbers or fake reviews. Add real, verified figures there — nowhere else —
+  once available.
+
 ## Known Limitations / Follow-ups
 
 - Legal pages (Privacy Policy, Terms of Use) are drafts and require review by

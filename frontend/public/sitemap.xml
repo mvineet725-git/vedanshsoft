@@ -26,6 +26,16 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.vedanshsoftware.com/demo/society</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.vedanshsoftware.com/demo/education</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.vedanshsoftware.com/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

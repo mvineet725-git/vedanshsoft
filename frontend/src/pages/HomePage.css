@@ -28,21 +28,28 @@
   flex-wrap: wrap;
 }
 
-.hero-visual {
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
+.hero-visual-wrap {
+  width: 100%;
 }
 
 @media (max-width: 900px) {
   .hero-grid {
     grid-template-columns: 1fr;
   }
-  .hero-visual {
+  .hero-visual-wrap {
     order: -1;
     max-width: 480px;
     margin-inline: auto;
   }
+}
+
+.trust-band {
+  padding-block: var(--space-7);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.comparison-section {
+  background: var(--color-bg-alt);
 }
 
 .industries-section {

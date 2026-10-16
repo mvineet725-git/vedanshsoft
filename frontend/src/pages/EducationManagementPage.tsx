@@ -2,75 +2,14 @@ import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import Seo from "../components/Seo";
 import DashboardMockup from "../components/DashboardMockup";
-import FeatureCard from "../components/FeatureCard";
-import EnquiryForm from "../components/EnquiryForm";
+import FeatureExplorer from "../components/FeatureExplorer";
+import InstitutionTypeSelector from "../components/InstitutionTypeSelector";
+import MultiStepEnquiryForm from "../components/MultiStepEnquiryForm";
+import { EDUCATION_EXPLORER_FEATURES } from "../data/educationFeatures";
 import { EnquirySource, ProductInterest } from "../types/enquiry";
 import "./SolutionPage.css";
 
 const AUDIENCE = ["Schools", "Colleges", "Coaching Centers", "Tuition Classes", "Home Tuition Businesses", "Training Institutes"];
-
-const FEATURES = [
-  {
-    icon: "users" as const,
-    title: "Student Management",
-    description: "Maintain organized student records in place of scattered registers and spreadsheets.",
-  },
-  {
-    icon: "clipboard" as const,
-    title: "Admissions & Enrollment",
-    description: "Track enquiries and admissions through a structured enrollment process.",
-  },
-  {
-    icon: "wallet" as const,
-    title: "Fee Management",
-    description: "Record fee structures, collections, and dues to reduce manual fee tracking effort.",
-  },
-  {
-    icon: "calendar" as const,
-    title: "Attendance Tracking",
-    description: "Maintain attendance records for students across classes, courses, or batches.",
-  },
-  {
-    icon: "layers" as const,
-    title: "Class, Course & Batch Management",
-    description: "Organize your institution's classes, courses, and batches in a structured way.",
-  },
-  {
-    icon: "users" as const,
-    title: "Teacher & Staff Management",
-    description: "Maintain records of teaching and non-teaching staff involved in institution operations.",
-  },
-  {
-    icon: "calendar" as const,
-    title: "Timetable Management",
-    description: "Plan and reference class and batch timetables in a centralized system.",
-  },
-  {
-    icon: "message" as const,
-    title: "Parent/Student Communication",
-    description: "Share updates and announcements with students and parents more efficiently.",
-  },
-  {
-    icon: "graduation" as const,
-    title: "Examination & Results Management",
-    description: "Record examination details and results as part of academic administration.",
-  },
-  {
-    icon: "chart" as const,
-    title: "Reports & Dashboards",
-    description: "Access summarized academic and administrative reports for better oversight.",
-  },
-  {
-    icon: "shield" as const,
-    title: "Role-Based Access",
-    description: "Control what administrators, teachers, and staff can view or manage based on their role.",
-  },
-  {
-    icon: "building" as const,
-    title: "Multi-Branch Management",
-    description: "For institutions with multiple branches, manage operations across locations, where supported.",
-  },
-];
 
 export default function EducationManagementPage() {
   return (
@@ -122,14 +61,30 @@ export default function EducationManagementPage() {
       <section className="section">
         <div className="container">
           <div className="section-head" style={{ margin: "0 auto var(--space-7)", textAlign: "center" }}>
+            <span className="eyebrow">Choose Your Institution Type</span>
+            <h2>See What's Relevant to Your Institution</h2>
+            <p className="text-muted" style={{ marginTop: "var(--space-4)" }}>
+              Select the type of institution you run to see illustrative sample metrics relevant to it.
+            </p>
+          </div>
+          <InstitutionTypeSelector />
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <div className="section-head" style={{ margin: "0 auto var(--space-7)", textAlign: "center" }}>
             <span className="eyebrow">Features & Benefits</span>
             <h2>Everything Your Institution Needs to Operate Smoothly</h2>
+            <p className="text-muted" style={{ marginTop: "var(--space-4)" }}>
+              Select a category below to explore how each feature works.
+            </p>
           </div>
-          <div className="grid grid-3">
-            {FEATURES.map((feature) => (
-              <FeatureCard key={feature.title} {...feature} tone="teal" />
-            ))}
-          </div>
+          <FeatureExplorer
+            features={EDUCATION_EXPLORER_FEATURES}
+            demoLink="/demo/education"
+            demoLabel="Try This in the Interactive Demo"
+          />
           <div className="feature-note">
             <span>&#9432;</span>
             <p>
@@ -148,12 +103,12 @@ export default function EducationManagementPage() {
               Tell us about your institution and we'll show you how our software can simplify your administration.
             </p>
           </div>
-          <EnquiryForm
+          <MultiStepEnquiryForm
             source={EnquirySource.EducationPage}
             defaultProduct={ProductInterest.EducationManagementSoftware}
             lockProduct
             title="Education Management Software Enquiry"
-            subtitle="Fill in your details and our team will reach out to schedule a demo."
+            subtitle="A few quick steps and our team will reach out to schedule a demo."
           />
         </div>
       </section>

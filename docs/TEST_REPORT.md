@@ -3,7 +3,80 @@
 This report lists only tests that were actually executed during development,
 with pass/fail status. It will be extended as automated test suites are added.
 
-Last updated: 2026-10-15
+Last updated: 2026-10-16
+
+## Interactive SaaS Upgrade (2026-10-16)
+
+Scope: interactive hero demo, India city explorer, Society/Education feature
+explorers, before/after comparison, public fictional product demos, multi-step
+enquiry form, searchable/categorized FAQ. No backend, database, or API changes
+were required for this phase — all new functionality is frontend-only and
+reuses the existing `/api/enquiries` contract unchanged.
+
+### Automated browser tests (Playwright, headless Chromium, against live backend)
+
+| Test | Result |
+|---|---|
+| Home page renders with new hero headline and interactive tabs | PASS |
+| Hero tab switch (Society ↔ Education) changes displayed sample metrics | PASS |
+| Trust section shows honest "no fabricated stats" messaging (no verified metrics configured) | PASS |
+| City explorer search filters the city list | PASS |
+| Selecting a city shows its detail panel with product-specific enquiry CTAs | PASS |
+| Clicking "Enquire for [city]" navigates to /contact with product and city pre-filled | PASS |
+| Multi-step enquiry form: full 4-step flow (Solution → Organization → Contact → Review) submits successfully against the live backend and returns a real reference number | PASS |
+| Confirmation screen shows phone/email/WhatsApp contact buttons alongside the reference number | PASS |
+| Feature explorer (Society page) updates displayed content when a category is selected | PASS |
+| `lockProduct` on a dedicated product page correctly skips the Solution step and starts at Organization | PASS |
+| Institution type selector (Education page) changes displayed sample metrics per type | PASS |
+| Society demo page shows the fictional-data banner and fictional society name/records | PASS |
+| Society demo tabs (Flats/Notices/Complaints) switch content correctly | PASS |
+| Education demo page shows the fictional-data banner and fictional institute name/records | PASS |
+| FAQ search filters results by keyword | PASS |
+| FAQ search shows an accessible empty state when no results match | PASS |
+| Before/after comparison toggle switches displayed content | PASS |
+| No console errors across any of the above interactions | PASS (zero errors reported) |
+
+### Responsive and overlap testing
+
+Re-ran the mobile (375×812) and tablet (768×1024) overflow sweep across all
+new pages and sections (home, both product pages, contact, both demo pages,
+FAQ): zero horizontal overflow issues, zero console errors.
+
+Verified the floating WhatsApp button does not overlap the multi-step
+enquiry form's submit button on a phone-width viewport (bounding-box check:
+no overlap).
+
+### Build verification
+
+- `dotnet build` on the backend: 0 errors, 0 warnings (unchanged — no backend
+  files were modified in this phase, confirming no regression to existing
+  enquiry records, auth, or APIs).
+- `npm run build` (tsc + vite) on the frontend: clean production build.
+
+### Data integrity
+
+No database migrations were created or needed. No existing enquiry records,
+admin accounts, or API contracts were touched. The previously existing
+single-step `EnquiryForm` component was removed only after confirming zero
+remaining references anywhere in the codebase (fully superseded by
+`MultiStepEnquiryForm`, which shares its base CSS and posts to the same
+unchanged `/api/enquiries` endpoint).
+
+### Known gaps for this phase
+
+- Accessibility: new tab-style controls (hero demo, feature explorer,
+  institution selector, FAQ categories) use native `<button>` elements with
+  `role="tab"`/`aria-selected`, which are keyboard-focusable and operable, but
+  do not implement full ARIA tabs arrow-key navigation. Consistent with the
+  existing `FaqAccordion` pattern already in the codebase.
+- The admin dashboard was not modified in this phase and was not re-tested
+  here (see the prior admin dashboard UI testing section above).
+- No admin-side content management UI was built for toggling verified metrics
+  on/off; `VERIFIED_METRICS` and `APPROVED_TESTIMONIALS` in
+  `frontend/src/data/siteContent.ts` and `testimonials.ts` are edited directly
+  in code, which is appropriate for the current scale per the brief's
+  allowance for "a clean configuration file... appropriate to the current
+  architecture" instead of a full CMS.
 
 ## Build Verification
 

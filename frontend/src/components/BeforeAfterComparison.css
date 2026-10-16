@@ -1,0 +1,70 @@
+.comparison {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.comparison-toggle {
+  display: flex;
+}
+
+.comparison-toggle-btn {
+  flex: 1;
+  padding: var(--space-5) var(--space-4);
+  border: none;
+  background: var(--color-bg-alt);
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.comparison-toggle-btn.is-active.manual {
+  background: #fdf1dc;
+  color: var(--color-warning);
+}
+
+.comparison-toggle-btn.is-active.software {
+  background: var(--color-success-bg);
+  color: var(--color-teal-600);
+}
+
+.comparison-panel {
+  padding: var(--space-6);
+}
+
+.comparison-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.comparison-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-size: var(--fs-base);
+}
+
+.comparison-list li.tone-manual svg {
+  color: var(--color-warning);
+}
+
+.comparison-list li.tone-software svg {
+  color: var(--color-teal-600);
+}
+
+.comparison-list svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.comparison-note {
+  font-size: var(--fs-xs);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}

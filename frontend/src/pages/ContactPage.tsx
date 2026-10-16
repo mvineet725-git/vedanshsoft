@@ -2,7 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import Layout from "../components/Layout";
 import Seo from "../components/Seo";
 import Icon from "../components/Icon";
-import EnquiryForm from "../components/EnquiryForm";
+import MultiStepEnquiryForm from "../components/MultiStepEnquiryForm";
 import {
   COMPANY_EMAIL,
   COMPANY_PHONE_DISPLAY,
@@ -15,6 +15,7 @@ import "./ContactPage.css";
 export default function ContactPage() {
   const [searchParams] = useSearchParams();
   const productParam = searchParams.get("product");
+  const cityParam = searchParams.get("city");
 
   const defaultProduct =
     productParam === "society"
@@ -22,6 +23,21 @@ export default function ContactPage() {
       : productParam === "education"
       ? ProductInterest.EducationManagementSoftware
       : undefined;
+
+  const productLabel =
+    productParam === "society"
+      ? "Society Management Software"
+      : productParam === "education"
+      ? "Education Management Software"
+      : null;
+
+  const whatsappMessage = [
+    "Hi, I would like to enquire about your software solutions.",
+    productLabel ? `I'm interested in ${productLabel}.` : null,
+    cityParam ? `I'm based in ${cityParam}.` : null,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <Layout>
@@ -58,7 +74,7 @@ export default function ContactPage() {
               </a>
 
               <a
-                href={whatsappLink("Hi, I would like to enquire about your software solutions.")}
+                href={whatsappLink(whatsappMessage)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="contact-channel"
@@ -74,7 +90,11 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <EnquiryForm source={EnquirySource.ContactPage} defaultProduct={defaultProduct} />
+          <MultiStepEnquiryForm
+            source={EnquirySource.ContactPage}
+            defaultProduct={defaultProduct}
+            defaultCity={cityParam ?? undefined}
+          />
         </div>
       </section>
     </Layout>

@@ -1,0 +1,76 @@
+.institution-selector {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.institution-selector-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+}
+
+.institution-chip {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--color-border);
+  background: #fff;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.institution-chip:hover {
+  border-color: var(--color-teal-400);
+}
+
+.institution-chip.is-active {
+  background: var(--color-teal-500);
+  border-color: var(--color-teal-500);
+  color: #fff;
+}
+
+.institution-metrics {
+  margin-top: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.institution-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+}
+
+@media (max-width: 640px) {
+  .institution-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.institution-metric {
+  background: var(--color-bg-alt);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+  text-align: center;
+}
+
+.institution-metric-value {
+  display: block;
+  font-size: var(--fs-xl);
+  font-weight: 800;
+  color: var(--color-navy-900);
+}
+
+.institution-metric-label {
+  display: block;
+  font-size: var(--fs-xs);
+  color: var(--color-text-subtle);
+  margin-top: 2px;
+}
