@@ -18,7 +18,8 @@ export type IconName =
   | "whatsapp"
   | "clock"
   | "search"
-  | "layers";
+  | "layers"
+  | "map-pin";
 
 const paths: Record<IconName, string> = {
   building: "M4 21V7l8-4 8 4v14M4 21h16M9 21v-5h6v5M9 11h.01M9 15h.01M15 11h.01M15 15h.01",
@@ -41,6 +42,7 @@ const paths: Record<IconName, string> = {
   clock: "M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20ZM12 6v6l4 2",
   search: "M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16ZM21 21l-4.3-4.3",
   layers: "m12 2 9 5-9 5-9-5 9-5ZM3 12l9 5 9-5M3 17l9 5 9-5",
+  "map-pin": "M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z",
 };
 
 export default function Icon({ name, size = 28 }: { name: IconName; size?: number }) {

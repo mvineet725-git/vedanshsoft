@@ -13,6 +13,14 @@ import MultiStepEnquiryForm from "../components/MultiStepEnquiryForm";
 import Icon from "../components/Icon";
 import { GENERAL_FAQS } from "../data/faqs";
 import { EnquirySource, ProductInterest } from "../types/enquiry";
+import {
+  COMPANY_ADDRESS_CITY,
+  COMPANY_ADDRESS_COUNTRY,
+  COMPANY_ADDRESS_LINE1,
+  COMPANY_ADDRESS_LINE2,
+  COMPANY_ADDRESS_POSTAL_CODE,
+  COMPANY_ADDRESS_STATE,
+} from "../lib/constants";
 import "./HomePage.css";
 
 const INDUSTRIES = [
@@ -74,6 +82,14 @@ export default function HomePage() {
           telephone: "+91-9172476575",
           description:
             "Vedansh Software Services builds society management software and education management software for Indian housing societies and educational institutions.",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: `${COMPANY_ADDRESS_LINE1}, ${COMPANY_ADDRESS_LINE2}`,
+            addressLocality: COMPANY_ADDRESS_CITY,
+            addressRegion: COMPANY_ADDRESS_STATE,
+            postalCode: COMPANY_ADDRESS_POSTAL_CODE,
+            addressCountry: COMPANY_ADDRESS_COUNTRY,
+          },
         })}
       </script>
 

@@ -4,6 +4,8 @@ import Seo from "../components/Seo";
 import Icon from "../components/Icon";
 import MultiStepEnquiryForm from "../components/MultiStepEnquiryForm";
 import {
+  COMPANY_ADDRESS_FULL,
+  COMPANY_ADDRESS_MAPS_QUERY,
   COMPANY_EMAIL,
   COMPANY_PHONE_DISPLAY,
   COMPANY_PHONE_TEL,
@@ -85,6 +87,19 @@ export default function ContactPage() {
                 <span>
                   <strong>WhatsApp Us</strong>
                   <span className="text-muted" style={{ display: "block" }}>Chat with our team</span>
+                </span>
+              </a>
+
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${COMPANY_ADDRESS_MAPS_QUERY}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contact-channel"
+              >
+                <span className="contact-channel-icon"><Icon name="map-pin" /></span>
+                <span>
+                  <strong>Visit Us</strong>
+                  <span className="text-muted" style={{ display: "block" }}>{COMPANY_ADDRESS_FULL}</span>
                 </span>
               </a>
             </div>

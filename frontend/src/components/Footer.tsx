@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
-import { COMPANY_EMAIL, COMPANY_PHONE_DISPLAY, COMPANY_PHONE_TEL } from "../lib/constants";
+import {
+  COMPANY_ADDRESS_FULL,
+  COMPANY_ADDRESS_MAPS_QUERY,
+  COMPANY_EMAIL,
+  COMPANY_PHONE_DISPLAY,
+  COMPANY_PHONE_TEL,
+} from "../lib/constants";
 import "./Footer.css";
 
 export default function Footer() {
@@ -40,6 +46,15 @@ export default function Footer() {
           <ul>
             <li><a href={`tel:${COMPANY_PHONE_TEL}`}>{COMPANY_PHONE_DISPLAY}</a></li>
             <li><a href={`mailto:${COMPANY_EMAIL}`}>{COMPANY_EMAIL}</a></li>
+            <li>
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${COMPANY_ADDRESS_MAPS_QUERY}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {COMPANY_ADDRESS_FULL}
+              </a>
+            </li>
           </ul>
         </div>
 
