@@ -9,11 +9,14 @@ import MultiStepEnquiryForm from "../components/MultiStepEnquiryForm";
 import { EDUCATION_EXPLORER_FEATURES } from "../data/educationFeatures";
 import { EDUCATION_PERSONAS } from "../data/personas";
 import { EnquirySource, ProductInterest } from "../types/enquiry";
+import { useTrackPageView } from "../lib/useTrackPageView";
 import "./SolutionPage.css";
 
 const AUDIENCE = ["Schools", "Colleges", "Coaching Centers", "Tuition Classes", "Home Tuition Businesses", "Training Institutes"];
 
 export default function EducationManagementPage() {
+  useTrackPageView("education", "education_management");
+
   return (
     <Layout>
       <Seo

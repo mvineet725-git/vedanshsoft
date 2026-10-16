@@ -2,6 +2,8 @@ import IndustryLandingTemplate, { type IndustryLandingContent } from "../compone
 import { EnquirySource, ProductInterest } from "../types/enquiry";
 
 const content: IndustryLandingContent = {
+  pageKey: "coaching_institute",
+  analyticsProduct: "education",
   path: "/solutions/coaching-institute-management-software",
   metaTitle: "Coaching Institute Management Software | Vedansh Software Services",
   metaDescription:

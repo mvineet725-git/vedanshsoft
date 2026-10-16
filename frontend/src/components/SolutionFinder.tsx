@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Icon from "./Icon";
+import { track } from "../lib/analytics";
 import "./SolutionFinder.css";
 
 type OrgType = "society" | "school" | "coaching" | "other";
@@ -135,6 +136,9 @@ export default function SolutionFinder() {
                 onClick={() => {
                   setChallenge(option.value);
                   setStep(2);
+                  if (orgType) {
+                    track("solution_finder_completed", { product: resolveProduct(orgType), step: option.value });
+                  }
                 }}
               >
                 {option.label}

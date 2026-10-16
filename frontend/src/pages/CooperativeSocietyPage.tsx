@@ -2,6 +2,8 @@ import IndustryLandingTemplate, { type IndustryLandingContent } from "../compone
 import { EnquirySource, ProductInterest } from "../types/enquiry";
 
 const content: IndustryLandingContent = {
+  pageKey: "cooperative_housing_society",
+  analyticsProduct: "society",
   path: "/solutions/cooperative-housing-society-software",
   metaTitle: "Cooperative Housing Society Software in India | Vedansh Software Services",
   metaDescription:

@@ -8,6 +8,7 @@ import MultiStepEnquiryForm from "../components/MultiStepEnquiryForm";
 import { SOCIETY_EXPLORER_FEATURES } from "../data/societyFeatures";
 import { SOCIETY_PERSONAS } from "../data/personas";
 import { EnquirySource, ProductInterest } from "../types/enquiry";
+import { useTrackPageView } from "../lib/useTrackPageView";
 import "./SolutionPage.css";
 
 const AUDIENCE = [
@@ -19,6 +20,8 @@ const AUDIENCE = [
 ];
 
 export default function SocietyManagementPage() {
+  useTrackPageView("society", "society_management");
+
   return (
     <Layout>
       <Seo

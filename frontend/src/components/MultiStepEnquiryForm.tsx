@@ -14,8 +14,16 @@ import {
 } from "../types/enquiry";
 import Icon from "./Icon";
 import { COMPANY_EMAIL, COMPANY_PHONE_DISPLAY, COMPANY_PHONE_TEL, whatsappLink } from "../lib/constants";
+import { track, type AnalyticsProperties } from "../lib/analytics";
 import "./MultiStepEnquiryForm.css";
 import "./EnquiryForm.css";
+
+function productAnalyticsKey(product: ProductInterest): AnalyticsProperties["product"] {
+  if (product === ProductInterest.SocietyManagementSoftware) return "society";
+  if (product === ProductInterest.EducationManagementSoftware) return "education";
+  if (product === ProductInterest.CustomSoftwareDevelopment) return "custom";
+  return "other";
+}
 
 interface MultiStepEnquiryFormProps {
   source: EnquirySource;
@@ -73,6 +81,7 @@ export default function MultiStepEnquiryForm({
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [confirmation, setConfirmation] = useState<EnquiryConfirmationResponse | null>(null);
+  const [hasStarted, setHasStarted] = useState(false);
 
   const {
     register,
@@ -104,9 +113,17 @@ export default function MultiStepEnquiryForm({
   };
 
   const goNext = async () => {
+    if (!hasStarted) {
+      setHasStarted(true);
+      track("enquiry_form_start", { page: source.toString() });
+    }
     const fields = STEP_FIELDS[step];
     const valid = await trigger(fields);
-    if (valid) setStep((s) => Math.min(s + 1, STEPS.length - 1));
+    if (valid) {
+      setStep((s) => Math.min(s + 1, STEPS.length - 1));
+    } else {
+      track("enquiry_form_validation_error", { step: steps[step - firstStep] });
+    }
   };
 
   const goBack = () => setStep((s) => Math.max(s - 1, firstStep));
@@ -132,12 +149,14 @@ export default function MultiStepEnquiryForm({
         enquirySource: source,
       });
       setConfirmation(response);
+      track("enquiry_form_submitted", { product: productAnalyticsKey(Number(formValues.productInterestedIn) as ProductInterest) });
     } catch (err) {
       if (err instanceof ApiError) {
         setSubmitError(err.message);
       } else {
         setSubmitError("We could not submit your enquiry right now. Please try again or contact us directly.");
       }
+      track("enquiry_form_failed", {});
     } finally {
       setIsSubmitting(false);
     }

@@ -5,6 +5,46 @@ with pass/fail status. It will be extended as automated test suites are added.
 
 Last updated: 2026-10-16
 
+## Priority 5: Analytics Instrumentation (2026-10-16)
+
+Scope: a privacy-conscious, provider-agnostic event-tracking layer, wired
+into every conversion-relevant interaction the brief specified. No analytics
+provider is connected — see [docs/ANALYTICS.md](ANALYTICS.md) for setup
+instructions once one is chosen. No backend changes.
+
+### Design decision
+
+No analytics provider was pre-authorized, and installing a live tracking
+script (with its cookie/consent implications) without the business owner's
+sign-off would have violated the brief's own instruction not to install
+tracking scripts without appropriate configuration and privacy disclosures.
+Built the instrumentation layer now — a `track()` call at every point the
+brief listed — with a no-op sink that only logs to the dev console, so the
+*correctness* of event placement can be verified today, and a real provider
+(GA4, Plausible, etc.) can be plugged in later by implementing one function
+(`setAnalyticsSink`) in one file.
+
+### Automated browser tests (Playwright, live backend, dev-console event capture)
+
+| Test | Result |
+|---|---|
+| `product_page_view` fires on product and industry landing pages with the correct product key | PASS |
+| `demo_cta_click` fires from the header CTA | PASS |
+| `enquiry_form_start` fires on the first step transition | PASS |
+| `enquiry_form_validation_error` fires when a required field is missing on step advance | PASS (verified directly after a flawed test-script assumption produced an initial false negative — confirmed as a test-script logic error, not a product defect) |
+| `enquiry_form_submitted` fires only after the backend confirms persistence | PASS |
+| `phone_click` fires on a click-to-call link | PASS |
+| `demo_interaction` fires on fictional-demo tab switches with the correct product/step | PASS |
+| `solution_finder_completed` fires with the correct recommended product | PASS |
+| `requirements_checklist_submitted` fires with a capability *count*, never the selected labels | PASS |
+| **No full name, mobile number, or any other user-entered text ever appears in any analytics event**, across a full click-through covering every instrumented interaction | PASS — this was the single most important check in this phase |
+
+### Build verification
+
+- Backend: unchanged, `dotnet build` clean.
+- Frontend: `npm run build` clean; the analytics module adds negligible
+  bundle weight (a few hundred bytes) since it has no external dependency.
+
 ## Priority 4: Marketing & Discoverability — Articles and Industry Landing Pages (2026-10-16)
 
 Scope: an articles/guides section with 8 original, substantive articles, and

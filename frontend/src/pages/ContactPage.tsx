@@ -12,6 +12,7 @@ import {
   whatsappLink,
 } from "../lib/constants";
 import { EnquirySource, ProductInterest } from "../types/enquiry";
+import { track } from "../lib/analytics";
 import "./ContactPage.css";
 
 export default function ContactPage() {
@@ -59,7 +60,7 @@ export default function ContactPage() {
             </p>
 
             <div className="contact-channels">
-              <a href={`tel:${COMPANY_PHONE_TEL}`} className="contact-channel">
+              <a href={`tel:${COMPANY_PHONE_TEL}`} className="contact-channel" onClick={() => track("phone_click", { page: "contact" })}>
                 <span className="contact-channel-icon"><Icon name="phone" /></span>
                 <span>
                   <strong>Call Us</strong>
@@ -80,6 +81,7 @@ export default function ContactPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="contact-channel"
+                onClick={() => track("whatsapp_click", { page: "contact" })}
               >
                 <span className="contact-channel-icon" style={{ background: "#e8f9ef", color: "#178a4c" }}>
                   <Icon name="whatsapp" />

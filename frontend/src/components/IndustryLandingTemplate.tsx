@@ -2,11 +2,15 @@ import { Link } from "react-router-dom";
 import Layout from "./Layout";
 import Seo from "./Seo";
 import MultiStepEnquiryForm from "./MultiStepEnquiryForm";
+import type { AnalyticsProperties } from "../lib/analytics";
+import { useTrackPageView } from "../lib/useTrackPageView";
 import type { EnquirySource, ProductInterest } from "../types/enquiry";
 import "../pages/IndustryLandingPage.css";
 import "../pages/SolutionPage.css";
 
 export interface IndustryLandingContent {
+  pageKey: string;
+  analyticsProduct: AnalyticsProperties["product"];
   path: string;
   metaTitle: string;
   metaDescription: string;
@@ -21,6 +25,8 @@ export interface IndustryLandingContent {
 }
 
 export default function IndustryLandingTemplate({ content }: { content: IndustryLandingContent }) {
+  useTrackPageView(content.analyticsProduct, content.pageKey);
+
   return (
     <Layout>
       <Seo title={content.metaTitle} description={content.metaDescription} canonicalPath={content.path} />

@@ -5,12 +5,20 @@ import Seo from "../components/Seo";
 import DemoBanner from "../components/DemoBanner";
 import Icon from "../components/Icon";
 import { DEMO_INSTITUTE } from "../data/demoData";
+import { track } from "../lib/analytics";
+import { useTrackPageView } from "../lib/useTrackPageView";
 import "./DemoPage.css";
 
 type Tab = "students" | "batches" | "results";
 
 export default function EducationDemoPage() {
   const [tab, setTab] = useState<Tab>("students");
+  useTrackPageView("education", "education_demo");
+
+  const onTabChange = (next: Tab) => {
+    setTab(next);
+    track("demo_interaction", { product: "education", step: next });
+  };
 
   return (
     <Layout>
@@ -52,13 +60,13 @@ export default function EducationDemoPage() {
           </div>
 
           <div className="demo-tabs" role="tablist">
-            <button role="tab" aria-selected={tab === "students"} className={`demo-tab ${tab === "students" ? "is-active" : ""}`} onClick={() => setTab("students")}>
+            <button role="tab" aria-selected={tab === "students"} className={`demo-tab ${tab === "students" ? "is-active" : ""}`} onClick={() => onTabChange("students")}>
               <Icon name="users" size={18} /> Students
             </button>
-            <button role="tab" aria-selected={tab === "batches"} className={`demo-tab ${tab === "batches" ? "is-active" : ""}`} onClick={() => setTab("batches")}>
+            <button role="tab" aria-selected={tab === "batches"} className={`demo-tab ${tab === "batches" ? "is-active" : ""}`} onClick={() => onTabChange("batches")}>
               <Icon name="layers" size={18} /> Batches
             </button>
-            <button role="tab" aria-selected={tab === "results"} className={`demo-tab ${tab === "results" ? "is-active" : ""}`} onClick={() => setTab("results")}>
+            <button role="tab" aria-selected={tab === "results"} className={`demo-tab ${tab === "results" ? "is-active" : ""}`} onClick={() => onTabChange("results")}>
               <Icon name="graduation" size={18} /> Exam Results
             </button>
           </div>

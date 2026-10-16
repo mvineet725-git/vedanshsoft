@@ -2,6 +2,8 @@ import IndustryLandingTemplate, { type IndustryLandingContent } from "../compone
 import { EnquirySource, ProductInterest } from "../types/enquiry";
 
 const content: IndustryLandingContent = {
+  pageKey: "school_management",
+  analyticsProduct: "education",
   path: "/solutions/school-management-software",
   metaTitle: "School Management Software | Vedansh Software Services",
   metaDescription:

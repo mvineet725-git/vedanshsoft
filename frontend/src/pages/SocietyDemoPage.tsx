@@ -5,6 +5,8 @@ import Seo from "../components/Seo";
 import DemoBanner from "../components/DemoBanner";
 import Icon from "../components/Icon";
 import { DEMO_SOCIETY } from "../data/demoData";
+import { track } from "../lib/analytics";
+import { useTrackPageView } from "../lib/useTrackPageView";
 import "./DemoPage.css";
 
 type Tab = "flats" | "notices" | "complaints";
@@ -17,6 +19,12 @@ const MAINTENANCE_BADGE: Record<string, string> = {
 
 export default function SocietyDemoPage() {
   const [tab, setTab] = useState<Tab>("flats");
+  useTrackPageView("society", "society_demo");
+
+  const onTabChange = (next: Tab) => {
+    setTab(next);
+    track("demo_interaction", { product: "society", step: next });
+  };
 
   return (
     <Layout>
@@ -56,13 +64,13 @@ export default function SocietyDemoPage() {
           </div>
 
           <div className="demo-tabs" role="tablist">
-            <button role="tab" aria-selected={tab === "flats"} className={`demo-tab ${tab === "flats" ? "is-active" : ""}`} onClick={() => setTab("flats")}>
+            <button role="tab" aria-selected={tab === "flats"} className={`demo-tab ${tab === "flats" ? "is-active" : ""}`} onClick={() => onTabChange("flats")}>
               <Icon name="building" size={18} /> Flats & Residents
             </button>
-            <button role="tab" aria-selected={tab === "notices"} className={`demo-tab ${tab === "notices" ? "is-active" : ""}`} onClick={() => setTab("notices")}>
+            <button role="tab" aria-selected={tab === "notices"} className={`demo-tab ${tab === "notices" ? "is-active" : ""}`} onClick={() => onTabChange("notices")}>
               <Icon name="bell" size={18} /> Notices
             </button>
-            <button role="tab" aria-selected={tab === "complaints"} className={`demo-tab ${tab === "complaints" ? "is-active" : ""}`} onClick={() => setTab("complaints")}>
+            <button role="tab" aria-selected={tab === "complaints"} className={`demo-tab ${tab === "complaints" ? "is-active" : ""}`} onClick={() => onTabChange("complaints")}>
               <Icon name="message" size={18} /> Complaints
             </button>
           </div>

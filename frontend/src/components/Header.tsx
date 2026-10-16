@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Logo from "./Logo";
+import { track } from "../lib/analytics";
 import "./Header.css";
 
 const NAV_LINKS = [
@@ -44,7 +45,14 @@ export default function Header() {
               </li>
             ))}
           </ul>
-          <Link to="/contact?demo=true" className="btn btn-primary site-header-cta" onClick={() => setMenuOpen(false)}>
+          <Link
+            to="/contact?demo=true"
+            className="btn btn-primary site-header-cta"
+            onClick={() => {
+              setMenuOpen(false);
+              track("demo_cta_click", { page: "header" });
+            }}
+          >
             Request a Demo
           </Link>
         </nav>

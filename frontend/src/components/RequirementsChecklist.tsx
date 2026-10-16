@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { EDUCATION_CAPABILITIES, SOCIETY_CAPABILITIES } from "../data/requirementsCapabilities";
+import { track } from "../lib/analytics";
 import "./RequirementsChecklist.css";
 
 type Product = "society" | "education";
@@ -82,7 +83,11 @@ export default function RequirementsChecklist() {
         className="btn btn-primary btn-block"
         aria-disabled={selectedLabels.length === 0}
         onClick={(e) => {
-          if (selectedLabels.length === 0) e.preventDefault();
+          if (selectedLabels.length === 0) {
+            e.preventDefault();
+            return;
+          }
+          track("requirements_checklist_submitted", { product, step: String(selectedLabels.length) });
         }}
         style={selectedLabels.length === 0 ? { opacity: 0.6, pointerEvents: "none" } : undefined}
       >

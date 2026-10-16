@@ -15,6 +15,7 @@ import MultiStepEnquiryForm from "../components/MultiStepEnquiryForm";
 import Icon from "../components/Icon";
 import { GENERAL_FAQS } from "../data/faqs";
 import { EnquirySource, ProductInterest } from "../types/enquiry";
+import { track } from "../lib/analytics";
 import {
   COMPANY_ADDRESS_CITY,
   COMPANY_ADDRESS_COUNTRY,
@@ -108,7 +109,7 @@ export default function HomePage() {
               <Link to="/solutions" className="btn btn-primary">
                 Explore Our Solutions
               </Link>
-              <Link to="/contact?demo=true" className="btn btn-secondary">
+              <Link to="/contact?demo=true" className="btn btn-secondary" onClick={() => track("demo_cta_click", { page: "home_hero" })}>
                 Request a Demo
               </Link>
             </div>
@@ -317,7 +318,12 @@ export default function HomePage() {
             <p style={{ color: "#cbd8ea", marginTop: "var(--space-3)", maxWidth: "480px" }}>
               Request a free, no-obligation demo and see how our software fits your society or institution.
             </p>
-            <Link to="/pricing" className="btn btn-secondary" style={{ borderColor: "#fff", color: "#fff", marginTop: "var(--space-5)" }}>
+            <Link
+              to="/pricing"
+              className="btn btn-secondary"
+              style={{ borderColor: "#fff", color: "#fff", marginTop: "var(--space-5)" }}
+              onClick={() => track("pricing_cta_click", { page: "home_final_cta" })}
+            >
               Request Pricing Instead
             </Link>
           </div>
