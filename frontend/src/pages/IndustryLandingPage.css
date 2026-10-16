@@ -1,0 +1,45 @@
+.industry-landing-hero {
+  background: linear-gradient(135deg, var(--color-navy-900) 0%, var(--color-navy-700) 100%);
+  padding-block: var(--space-9) var(--space-8);
+  color: #fff;
+}
+
+.industry-landing-hero .eyebrow {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.industry-landing-hero h1 {
+  color: #fff;
+  margin-block: var(--space-4) var(--space-5);
+}
+
+.industry-landing-hero p {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: var(--fs-lg);
+  max-width: 640px;
+}
+
+.industry-landing-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-5);
+}
+
+@media (max-width: 760px) {
+  .industry-landing-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.industry-landing-point {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+}
+
+.industry-landing-point h4 {
+  margin-bottom: var(--space-2);
+  font-size: var(--fs-base);
+}

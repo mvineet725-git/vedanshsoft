@@ -26,6 +26,21 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.vedanshsoftware.com/solutions/cooperative-housing-society-software</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.vedanshsoftware.com/solutions/school-management-software</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.vedanshsoftware.com/solutions/coaching-institute-management-software</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.vedanshsoftware.com/demo/society</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -64,6 +79,51 @@
     <loc>https://www.vedanshsoftware.com/resources</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.vedanshsoftware.com/articles</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.vedanshsoftware.com/articles/digitize-housing-society-management</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.vedanshsoftware.com/articles/society-secretary-challenges</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.vedanshsoftware.com/articles/organize-society-maintenance-records</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.vedanshsoftware.com/articles/what-to-look-for-in-society-management-software</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.vedanshsoftware.com/articles/coaching-centers-organize-student-records</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.vedanshsoftware.com/articles/improve-fee-tracking-tuition-classes</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.vedanshsoftware.com/articles/manual-registers-vs-education-software</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.vedanshsoftware.com/articles/prepare-for-software-implementation</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.vedanshsoftware.com/privacy-policy</loc>

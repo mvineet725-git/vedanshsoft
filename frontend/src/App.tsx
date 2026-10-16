@@ -22,6 +22,11 @@ const PrivacyPolicyPage = lazy(() => import("./pages/PrivacyPolicyPage"));
 const TermsOfUsePage = lazy(() => import("./pages/TermsOfUsePage"));
 const TrustPage = lazy(() => import("./pages/TrustPage"));
 const ResourcesPage = lazy(() => import("./pages/ResourcesPage"));
+const BlogPage = lazy(() => import("./pages/BlogPage"));
+const ArticlePage = lazy(() => import("./pages/ArticlePage"));
+const CooperativeSocietyPage = lazy(() => import("./pages/CooperativeSocietyPage"));
+const SchoolManagementPage = lazy(() => import("./pages/SchoolManagementPage"));
+const CoachingInstitutePage = lazy(() => import("./pages/CoachingInstitutePage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
 // Admin pages are split into their own chunk: public visitors (the vast
@@ -60,6 +65,11 @@ export default function App() {
             <Route path="/terms-of-use" element={<TermsOfUsePage />} />
             <Route path="/how-we-work" element={<TrustPage />} />
             <Route path="/resources" element={<ResourcesPage />} />
+            <Route path="/articles" element={<BlogPage />} />
+            <Route path="/articles/:slug" element={<ArticlePage />} />
+            <Route path="/solutions/cooperative-housing-society-software" element={<CooperativeSocietyPage />} />
+            <Route path="/solutions/school-management-software" element={<SchoolManagementPage />} />
+            <Route path="/solutions/coaching-institute-management-software" element={<CoachingInstitutePage />} />
 
             <Route path="/admin/login" element={<AdminLoginPage />} />
             <Route

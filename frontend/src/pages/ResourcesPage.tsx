@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import Seo from "../components/Seo";
 import RequirementsChecklist from "../components/RequirementsChecklist";
@@ -75,6 +76,18 @@ export default function ResourcesPage() {
               <ReadinessChecklist />
             </div>
           )}
+        </div>
+      </section>
+
+      <section className="section" style={{ background: "var(--color-bg-alt)", textAlign: "center" }}>
+        <div className="container">
+          <h2>Looking for More Practical Guidance?</h2>
+          <p className="text-muted" style={{ marginTop: "var(--space-3)", maxWidth: "480px", marginInline: "auto" }}>
+            Read our articles on digitizing society and institution administration.
+          </p>
+          <Link to="/articles" className="btn btn-primary" style={{ marginTop: "var(--space-6)" }}>
+            Browse Articles
+          </Link>
         </div>
       </section>
     </Layout>

@@ -25,14 +25,14 @@ const INDUSTRIES: IndustryEntry[] = [
     title: "Cooperative Housing Societies",
     challenge: "Committees need transparent financial records and clear communication with members, often while managing operations voluntarily alongside other responsibilities.",
     help: "Structured income/expense tracking and administrative dashboards help committees manage society operations with more transparency.",
-    ctaTo: "/solutions/society-management",
+    ctaTo: "/solutions/cooperative-housing-society-software",
   },
   {
     icon: "graduation",
     title: "Schools",
     challenge: "Schools manage large volumes of student records, attendance, fees, and academic data, often across multiple spreadsheets and manual processes.",
     help: "Our Education Management Software centralizes student records, attendance, fees, and academic administration in one place.",
-    ctaTo: "/solutions/education-management",
+    ctaTo: "/solutions/school-management-software",
   },
   {
     icon: "book",
@@ -46,7 +46,7 @@ const INDUSTRIES: IndustryEntry[] = [
     title: "Coaching Institutes",
     challenge: "Coaching institutes often run multiple batches and need to track attendance, fees, and performance without administrative software built for their scale.",
     help: "Batch management, fee tracking, and attendance records help coaching institutes run more efficiently as they grow.",
-    ctaTo: "/solutions/education-management",
+    ctaTo: "/solutions/coaching-institute-management-software",
   },
   {
     icon: "message",

@@ -5,6 +5,48 @@ with pass/fail status. It will be extended as automated test suites are added.
 
 Last updated: 2026-10-16
 
+## Priority 4: Marketing & Discoverability — Articles and Industry Landing Pages (2026-10-16)
+
+Scope: an articles/guides section with 8 original, substantive articles, and
+3 genuinely differentiated industry landing pages. No backend changes.
+
+### Scope decision on industry pages
+
+The brief suggested 7 industry-specific landing pages but explicitly warned
+against "many nearly identical pages with swapped keywords." Of the 7
+suggested (Housing Society, Cooperative Society, Apartment Management,
+School, Coaching Center, Tuition Class, College), most would have differed
+from the existing product pages and Industries page only in a few nouns.
+Built only the 3 with genuinely distinct operational content to write about:
+**Cooperative Housing Society Software** (governance/AGM/audit angle),
+**School Management Software** (multi-grade, fixed academic calendar), and
+**Coaching Institute Management Software** (concurrent batches, rolling
+enrollment, exam-prep-aligned attendance). Skipped Apartment Management
+(duplicates Housing Society), Tuition Class and Training Institute
+(duplicate Coaching Institute), and College (duplicates School) rather than
+publish near-duplicate pages purely for keyword coverage.
+
+### Automated browser tests (Playwright, live backend)
+
+| Test | Result |
+|---|---|
+| `/articles` loads and lists all 8 articles | PASS |
+| Category filter narrows the article list correctly | PASS |
+| Individual article pages render multiple content sections, a related-articles block, and Article JSON-LD structured data | PASS (verified directly; an invalid Playwright locator chain in the throwaway test script produced false negatives on the first attempt — confirmed as a test-script bug, not a product defect, and re-verified) |
+| An invalid article slug redirects to `/articles` instead of showing a broken page | PASS |
+| All 3 industry landing pages load, show 4 distinct content points each, and include a working locked-product enquiry form | PASS |
+| Footer links to Articles and all 3 industry pages | PASS |
+| Industries page rows for Cooperative Societies, Schools, and Coaching Institutes link to their dedicated pages (not the generic product pages) | PASS |
+| No horizontal overflow on any new page at phone or tablet width | PASS |
+| No console errors across any of the above | PASS (zero errors reported) |
+
+### Build verification
+
+- Backend: unchanged, `dotnet build` clean (0 errors, 0 warnings).
+- Frontend: `npm run build` clean; the new article content and industry
+  pages are code-split into their own lazy-loaded chunks, so visitors who
+  never navigate to them don't pay for that bundle weight.
+
 ## Priority 3: Sales Management — Admin Dashboard Enhancements (2026-10-16)
 
 Scope: expanded enquiry statuses (Qualified, Proposal/Quotation), a

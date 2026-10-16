@@ -27,7 +27,9 @@ export default function Footer() {
           <ul>
             <li><Link to="/solutions/society-management">Society Management Software</Link></li>
             <li><Link to="/solutions/education-management">Education Management Software</Link></li>
-            <li><Link to="/solutions">All Solutions</Link></li>
+            <li><Link to="/solutions/cooperative-housing-society-software">Cooperative Society Software</Link></li>
+            <li><Link to="/solutions/school-management-software">School Management Software</Link></li>
+            <li><Link to="/solutions/coaching-institute-management-software">Coaching Institute Software</Link></li>
           </ul>
         </div>
 
@@ -39,6 +41,7 @@ export default function Footer() {
             <li><Link to="/pricing">Pricing</Link></li>
             <li><Link to="/how-we-work">How We Work</Link></li>
             <li><Link to="/resources">Resources</Link></li>
+            <li><Link to="/articles">Articles</Link></li>
             <li><Link to="/faq">FAQs</Link></li>
             <li><Link to="/contact">Contact Us</Link></li>
           </ul>
