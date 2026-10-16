@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import Seo from "../components/Seo";
 import Icon from "../components/Icon";
@@ -70,6 +71,9 @@ export default function AboutPage() {
               software reliable for everyday use, and continue improving based on real customer feedback
               after implementation.
             </p>
+            <Link to="/how-we-work" className="btn btn-secondary" style={{ borderColor: "#fff", color: "#fff", marginTop: "var(--space-6)" }}>
+              See How We Work With Customers
+            </Link>
           </div>
         </div>
       </section>

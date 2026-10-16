@@ -1,0 +1,31 @@
+.resources-hero {
+  background: var(--color-bg-alt);
+  padding-block: var(--space-9) var(--space-7);
+  text-align: center;
+}
+
+.resources-nav {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-7);
+  flex-wrap: wrap;
+}
+
+.resources-nav-btn {
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--color-border);
+  background: #fff;
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.resources-nav-btn.is-active {
+  background: var(--color-navy-900);
+  border-color: var(--color-navy-900);
+  color: #fff;
+}

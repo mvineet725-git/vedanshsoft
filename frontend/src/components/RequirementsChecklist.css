@@ -1,0 +1,110 @@
+.req-checklist {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-7);
+  box-shadow: var(--shadow-sm);
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.req-checklist-toggle {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.req-checklist-toggle-btn {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--color-border);
+  background: #fff;
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.req-checklist-toggle-btn.is-active {
+  background: var(--color-navy-900);
+  border-color: var(--color-navy-900);
+  color: #fff;
+}
+
+.req-checklist-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+@media (max-width: 560px) {
+  .req-checklist-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.req-checklist-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--color-border);
+  cursor: pointer;
+  font-size: var(--fs-sm);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.req-checklist-item:hover {
+  border-color: var(--color-teal-400);
+}
+
+.req-checklist-item input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-teal-500);
+  flex-shrink: 0;
+}
+
+.req-checklist-item.is-checked {
+  background: var(--color-success-bg);
+  border-color: var(--color-teal-400);
+}
+
+.req-checklist-summary {
+  background: var(--color-bg-alt);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  margin-bottom: var(--space-5);
+}
+
+.req-checklist-summary h4 {
+  font-size: var(--fs-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-subtle);
+  margin-bottom: var(--space-3);
+}
+
+.req-checklist-summary ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.req-checklist-summary li {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: 0.3rem 0.8rem;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+
+.req-checklist-empty {
+  color: var(--color-text-subtle);
+  font-size: var(--fs-sm);
+}
