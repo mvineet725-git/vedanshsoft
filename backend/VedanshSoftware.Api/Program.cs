@@ -13,20 +13,32 @@ using VedanshSoftware.Api.Services.Email;
 var builder = WebApplication.CreateBuilder(args);
 
 // ---- Database ----
+// SQLite and SQL Server need separate migration sets (e.g. ASP.NET Identity's
+// string keys map to TEXT in SQLite but must be a bounded nvarchar to be
+// indexed in SQL Server), so each provider has its own migrations tied to its
+// own DbContext type (SqlServerAppDbContext's migrations are tagged for that
+// type, not the base AppDbContext). Registering AppDbContext's service type
+// against the SqlServerAppDbContext implementation when that provider is
+// active makes every `AppDbContext` injection site in the app resolve the
+// instance whose migrations EF Core will actually find at runtime.
 var databaseProvider = builder.Configuration["DatabaseProvider"] ?? "Sqlite";
-builder.Services.AddDbContext<AppDbContext>(options =>
+var isSqlServer = string.Equals(databaseProvider, "SqlServer", StringComparison.OrdinalIgnoreCase);
+if (isSqlServer)
 {
-    if (string.Equals(databaseProvider, "SqlServer", StringComparison.OrdinalIgnoreCase))
+    builder.Services.AddDbContext<AppDbContext, SqlServerAppDbContext>(options =>
     {
         var connectionString = builder.Configuration.GetConnectionString("SqlServer");
-        options.UseSqlServer(connectionString);
-    }
-    else
+        options.UseSqlServer(connectionString, sql => sql.MigrationsHistoryTable("__EFMigrationsHistory"));
+    });
+}
+else
+{
+    builder.Services.AddDbContext<AppDbContext>(options =>
     {
         var connectionString = builder.Configuration.GetConnectionString("Sqlite") ?? "Data Source=vedansh.db";
         options.UseSqlite(connectionString);
-    }
-});
+    });
+}
 
 // ---- Identity ----
 builder.Services

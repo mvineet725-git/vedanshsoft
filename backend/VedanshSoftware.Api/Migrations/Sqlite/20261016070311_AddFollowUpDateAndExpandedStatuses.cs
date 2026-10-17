@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace VedanshSoftware.Api.Migrations
+namespace VedanshSoftware.Api.Migrations.Sqlite
 {
     /// <inheritdoc />
     public partial class AddFollowUpDateAndExpandedStatuses : Migration

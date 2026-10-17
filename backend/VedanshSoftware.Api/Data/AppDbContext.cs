@@ -29,7 +29,8 @@ public class AppDbContext : IdentityDbContext<AdminUser>
             entity.HasIndex(e => e.CreatedAt);
 
             entity.Property(e => e.ConsentAccepted).IsRequired();
-            entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql(
+                Database.IsSqlServer() ? "GETUTCDATE()" : "CURRENT_TIMESTAMP");
 
             entity.HasMany(e => e.Notes)
                 .WithOne(n => n.Enquiry)

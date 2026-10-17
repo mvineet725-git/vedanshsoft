@@ -125,7 +125,7 @@ Migrations run automatically on startup. For a safer rollout on an existing
 production database, you can instead run them as an explicit release step:
 
 ```bash
-dotnet ef database update --connection "<production connection string>"
+dotnet ef database update --context SqlServerAppDbContext --connection "<production connection string>"
 ```
 
 and disable the automatic `Migrate()` call in `Program.cs` once you prefer

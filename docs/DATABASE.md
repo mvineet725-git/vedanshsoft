@@ -5,7 +5,14 @@
 EF Core model definitions live in
 [backend/VedanshSoftware.Api/Models/](../backend/VedanshSoftware.Api/Models/)
 and [backend/VedanshSoftware.Api/Data/AppDbContext.cs](../backend/VedanshSoftware.Api/Data/AppDbContext.cs).
-Migrations are in `backend/VedanshSoftware.Api/Migrations/`.
+
+SQLite and SQL Server each have their own migration history, because ASP.NET
+Identity's string primary keys map to an unconstrained `TEXT` column in SQLite
+but must be a bounded `nvarchar(450)` to be usable as a SQL Server index/key
+column:
+
+- `backend/VedanshSoftware.Api/Migrations/Sqlite/` — SQLite migrations, tied to `AppDbContext`.
+- `backend/VedanshSoftware.Api/Migrations/SqlServer/` — SQL Server migrations, tied to `SqlServerAppDbContext` (a thin subclass of `AppDbContext` that exists only to give this set its own migration identity; see [Data/SqlServerAppDbContext.cs](../backend/VedanshSoftware.Api/Data/SqlServerAppDbContext.cs)). `Program.cs` registers `SqlServerAppDbContext` as the runtime implementation for `AppDbContext` when `DatabaseProvider=SqlServer`, so these are the migrations actually applied.
 
 ### `ContactEnquiries`
 
@@ -26,7 +33,7 @@ Migrations are in `backend/VedanshSoftware.Api/Migrations/`.
 | EnquirySource | int (enum) | |
 | Status | int (enum) | Indexed; default `New` |
 | AssignedTo | nvarchar(450), nullable | |
-| CreatedAt | datetime2 | Indexed; default `CURRENT_TIMESTAMP` |
+| CreatedAt | datetime2 | Indexed; default `CURRENT_TIMESTAMP` (SQLite) / `GETUTCDATE()` (SQL Server) |
 | UpdatedAt | datetime2 | |
 
 ### `EnquiryNotes`
@@ -57,10 +64,22 @@ See [docs/API.md](API.md) for the integer values of `ProductInterestedIn`,
 
 ```bash
 cd backend/VedanshSoftware.Api
-dotnet ef migrations add <Name>       # create a new migration
-dotnet ef database update             # apply pending migrations manually
-dotnet ef migrations remove           # remove the last unapplied migration
+
+# SQLite (default DbContext; local dev)
+dotnet ef migrations add <Name> --output-dir Migrations/Sqlite
+dotnet ef database update
+dotnet ef migrations remove
+
+# SQL Server (separate context so migration names/history don't collide with SQLite)
+dotnet ef migrations add <Name> --context SqlServerAppDbContext --output-dir Migrations/SqlServer
+dotnet ef database update --context SqlServerAppDbContext
+dotnet ef migrations remove --context SqlServerAppDbContext
 ```
+
+`dotnet ef migrations remove --context SqlServerAppDbContext` connects to the
+database to check applied-migration state, using the placeholder connection
+string in `SqlServerAppDbContextFactory`— set a real one there (or via
+environment) if you need to run it against an actual server.
 
 In normal operation, migrations are applied automatically at application
 startup (see `Program.cs`), so a manual `database update` is only needed for
@@ -86,8 +105,8 @@ restart.
 **Backup:**
 
 ```sql
-BACKUP DATABASE VedanshSoftware
-TO DISK = 'VedanshSoftware.bak'
+BACKUP DATABASE vsite
+TO DISK = 'vsite.bak'
 WITH FORMAT, COMPRESSION;
 ```
 
@@ -98,8 +117,8 @@ statements, which Azure SQL does not support directly.
 **Restore:**
 
 ```sql
-RESTORE DATABASE VedanshSoftware
-FROM DISK = 'VedanshSoftware.bak'
+RESTORE DATABASE vsite
+FROM DISK = 'vsite.bak'
 WITH REPLACE;
 ```
 
