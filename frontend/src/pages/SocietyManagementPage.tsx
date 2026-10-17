@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import Seo from "../components/Seo";
 import DashboardMockup from "../components/DashboardMockup";
+import { SOCIETY_SAMPLE_METRICS } from "../data/siteContent";
 import FeatureExplorer from "../components/FeatureExplorer";
 import PersonaMessaging from "../components/PersonaMessaging";
 import MultiStepEnquiryForm from "../components/MultiStepEnquiryForm";
@@ -49,7 +50,7 @@ export default function SocietyManagementPage() {
             </div>
           </div>
           <div className="solution-hero-visual">
-            <DashboardMockup />
+            <DashboardMockup tab="society" metrics={SOCIETY_SAMPLE_METRICS} title="Society Management" />
           </div>
         </div>
       </section>

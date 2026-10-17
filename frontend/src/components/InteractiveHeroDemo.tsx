@@ -34,7 +34,11 @@ export default function InteractiveHeroDemo() {
 
       <div className="hero-demo-panel" role="tabpanel">
         <div className="hero-demo-visual">
-          <DashboardMockup />
+          <DashboardMockup
+            tab={tab}
+            metrics={metrics}
+            title={tab === "society" ? "Society Management" : "Education Management"}
+          />
         </div>
 
         <div className="hero-demo-metrics">

@@ -1,57 +1,99 @@
-/** Original inline-SVG dashboard illustration used in place of stock photography. */
-export default function DashboardMockup() {
+import type { SampleDashboardMetric } from "../data/siteContent";
+import "./DashboardMockup.css";
+
+const TREND_BY_TAB: Record<"society" | "education", number[]> = {
+  society: [62, 58, 68, 64, 72, 70, 78],
+  education: [74, 70, 76, 79, 82, 80, 85],
+};
+
+interface DashboardMockupProps {
+  tab: "society" | "education";
+  metrics: SampleDashboardMetric[];
+  title: string;
+}
+
+const SPARKLINE_WIDTH = 220;
+const SPARKLINE_HEIGHT = 70;
+
+// A hand-rolled SVG sparkline (not recharts) deliberately: this component is
+// imported by the eagerly-loaded homepage, and pulling the chart library
+// into that bundle would ship ~95KB gzipped to every first-time visitor
+// just for a small hero preview. Real admin/demo charts (which are
+// lazy-loaded) use DonutBreakdownChart/BarBreakdownChart instead.
+function sparklinePoints(values: number[]): string {
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const range = max - min || 1;
+  return values
+    .map((value, index) => {
+      const x = (index / (values.length - 1)) * SPARKLINE_WIDTH;
+      const y = SPARKLINE_HEIGHT - ((value - min) / range) * (SPARKLINE_HEIGHT - 12) - 6;
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    })
+    .join(" ");
+}
+
+export default function DashboardMockup({ tab, metrics, title }: DashboardMockupProps) {
+  const trendValues = TREND_BY_TAB[tab];
+  const points = sparklinePoints(trendValues);
+  const lastPoint = points.split(" ").pop()!.split(",").map(Number);
+  const [primary, secondary, tertiary] = metrics;
+
   return (
-    <svg viewBox="0 0 560 420" width="100%" height="100%" role="img" aria-label="Preview of a society and education management dashboard showing resident records, fee collection, and attendance statistics">
-      <defs>
-        <linearGradient id="panelGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#163a6b" />
-          <stop offset="100%" stopColor="#0b1f3a" />
-        </linearGradient>
-      </defs>
+    <div className="dashboard-mockup" role="img" aria-label={`Preview of the ${title} dashboard showing sample metrics and a collection trend`}>
+      <div className="dashboard-mockup-topbar">
+        <span className="dashboard-mockup-dot" />
+        <span className="dashboard-mockup-title">{title}</span>
+        <span className="dashboard-mockup-pill">This Month</span>
+      </div>
 
-      <rect x="0" y="0" width="560" height="420" rx="20" fill="#f4f7fb" />
+      <div className="dashboard-mockup-stats">
+        {[primary, secondary, tertiary].map((metric) => (
+          <div className="dashboard-mockup-stat" key={metric.label}>
+            <span className="dashboard-mockup-stat-label">{metric.label}</span>
+            <span className="dashboard-mockup-stat-value">{metric.value}</span>
+            {metric.progress !== undefined && (
+              <div className="dashboard-mockup-stat-bar">
+                <div className="dashboard-mockup-stat-bar-fill" style={{ width: `${metric.progress}%` }} />
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
 
-      <rect x="24" y="24" width="512" height="56" rx="12" fill="url(#panelGrad)" />
-      <circle cx="52" cy="52" r="10" fill="#2cc3a9" />
-      <rect x="76" y="44" width="140" height="16" rx="8" fill="rgba(255,255,255,0.85)" />
-      <rect x="420" y="40" width="88" height="24" rx="12" fill="#2cc3a9" />
+      <div className="dashboard-mockup-chart-row">
+        <div className="dashboard-mockup-chart-card">
+          <span className="dashboard-mockup-chart-title">Collection Trend</span>
+          <svg
+            viewBox={`0 0 ${SPARKLINE_WIDTH} ${SPARKLINE_HEIGHT}`}
+            width="100%"
+            height={80}
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <polyline points={points} fill="none" stroke="#12a58d" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx={lastPoint[0]} cy={lastPoint[1]} r={4} fill="#0e8a76" />
+          </svg>
+        </div>
 
-      <rect x="24" y="96" width="162" height="100" rx="14" fill="#fff" stroke="#dde5f0" />
-      <rect x="40" y="114" width="60" height="10" rx="5" fill="#7a879c" />
-      <rect x="40" y="136" width="90" height="22" rx="6" fill="#0b1f3a" />
-      <rect x="40" y="168" width="110" height="8" rx="4" fill="#2cc3a9" />
-
-      <rect x="198" y="96" width="162" height="100" rx="14" fill="#fff" stroke="#dde5f0" />
-      <rect x="214" y="114" width="70" height="10" rx="5" fill="#7a879c" />
-      <rect x="214" y="136" width="80" height="22" rx="6" fill="#1e4fa3" />
-      <rect x="214" y="168" width="100" height="8" rx="4" fill="#3f7fe0" />
-
-      <rect x="372" y="96" width="164" height="100" rx="14" fill="#fff" stroke="#dde5f0" />
-      <rect x="388" y="114" width="64" height="10" rx="5" fill="#7a879c" />
-      <rect x="388" y="136" width="70" height="22" rx="6" fill="#12a58d" />
-      <rect x="388" y="168" width="90" height="8" rx="4" fill="#2cc3a9" />
-
-      <rect x="24" y="212" width="330" height="184" rx="14" fill="#fff" stroke="#dde5f0" />
-      <rect x="44" y="232" width="120" height="12" rx="6" fill="#163a6b" />
-      <polyline
-        points="44,360 90,330 136,345 182,300 228,315 274,260 320,280"
-        fill="none"
-        stroke="#2cc3a9"
-        strokeWidth="4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <circle cx="320" cy="280" r="6" fill="#0e8a76" />
-
-      <rect x="372" y="212" width="164" height="184" rx="14" fill="#fff" stroke="#dde5f0" />
-      <rect x="388" y="232" width="100" height="12" rx="6" fill="#163a6b" />
-      {[0, 1, 2, 3].map((i) => (
-        <g key={i}>
-          <circle cx="404" cy={268 + i * 30} r="14" fill="#e8f1fd" />
-          <rect x="426" y={260 + i * 30} width="92" height="8" rx="4" fill="#51607a" />
-          <rect x="426" y={272 + i * 30} width="60" height="6" rx="3" fill="#dde5f0" />
-        </g>
-      ))}
-    </svg>
+        <div className="dashboard-mockup-list-card">
+          <span className="dashboard-mockup-chart-title">Recent Activity</span>
+          <ul className="dashboard-mockup-list">
+            <li>
+              <span className="dashboard-mockup-list-dot" />
+              <span>New enquiry received</span>
+            </li>
+            <li>
+              <span className="dashboard-mockup-list-dot" />
+              <span>Payment recorded</span>
+            </li>
+            <li>
+              <span className="dashboard-mockup-list-dot" />
+              <span>Notice published</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   );
 }

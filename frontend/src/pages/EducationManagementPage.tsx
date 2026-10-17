@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import Seo from "../components/Seo";
 import DashboardMockup from "../components/DashboardMockup";
+import { EDUCATION_SAMPLE_METRICS } from "../data/siteContent";
 import FeatureExplorer from "../components/FeatureExplorer";
 import InstitutionTypeSelector from "../components/InstitutionTypeSelector";
 import PersonaMessaging from "../components/PersonaMessaging";
@@ -44,7 +45,7 @@ export default function EducationManagementPage() {
             </div>
           </div>
           <div className="solution-hero-visual">
-            <DashboardMockup />
+            <DashboardMockup tab="education" metrics={EDUCATION_SAMPLE_METRICS} title="Education Management" />
           </div>
         </div>
       </section>
