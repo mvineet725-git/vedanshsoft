@@ -1,0 +1,172 @@
+.festive-banner {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, var(--color-festive-bg) 0%, var(--color-festive-bg-alt) 100%);
+  padding: var(--space-9) 0;
+  isolation: isolate;
+}
+
+.festive-banner-decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.festive-diya {
+  position: absolute;
+  color: var(--color-festive-gold);
+  opacity: 0.35;
+  animation: festive-glow 3.2s ease-in-out infinite;
+}
+
+.festive-diya-1 {
+  top: 12%;
+  left: 6%;
+  animation-delay: 0s;
+}
+
+.festive-diya-2 {
+  top: 65%;
+  left: 14%;
+  animation-delay: 1s;
+}
+
+.festive-diya-3 {
+  top: 24%;
+  right: 8%;
+  animation-delay: 2s;
+}
+
+@keyframes festive-glow {
+  0%, 100% { opacity: 0.25; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .festive-diya {
+    animation: none;
+    opacity: 0.35;
+  }
+}
+
+.festive-banner-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 880px;
+}
+
+.festive-banner-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: rgba(232, 182, 74, 0.12);
+  border: 1px solid rgba(232, 182, 74, 0.35);
+  color: var(--color-festive-gold-bright);
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-5);
+}
+
+.festive-banner-heading {
+  color: var(--color-white);
+  font-size: var(--fs-3xl);
+  line-height: var(--lh-tight);
+  margin-bottom: var(--space-4);
+}
+
+.festive-banner-sub {
+  color: #cdd8ec;
+  font-size: var(--fs-lg);
+  max-width: 640px;
+  margin: 0 auto var(--space-8);
+}
+
+.festive-offer-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-5);
+  text-align: left;
+  margin-bottom: var(--space-6);
+}
+
+.festive-offer-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(232, 182, 74, 0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  backdrop-filter: blur(2px);
+}
+
+.festive-offer-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: rgba(232, 182, 74, 0.15);
+  color: var(--color-festive-gold-bright);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-4);
+}
+
+.festive-offer-card h3 {
+  color: var(--color-white);
+  font-size: var(--fs-lg);
+  margin-bottom: var(--space-2);
+}
+
+.festive-offer-card p {
+  color: #b9c6dd;
+  font-size: var(--fs-sm);
+  margin-bottom: var(--space-5);
+}
+
+.festive-btn {
+  display: inline-flex;
+  background: linear-gradient(135deg, var(--color-festive-gold) 0%, var(--color-festive-ember) 100%);
+  color: var(--color-navy-900);
+  font-weight: 700;
+  border: none;
+  box-shadow: 0 4px 14px rgba(232, 182, 74, 0.3);
+}
+
+.festive-btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+
+.festive-offer-terms {
+  color: #cdd8ec;
+  font-size: var(--fs-sm);
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.festive-offer-terms strong {
+  display: block;
+  color: var(--color-festive-gold-bright);
+  font-size: var(--fs-base);
+  margin-bottom: var(--space-2);
+}
+
+.festive-offer-note {
+  color: #9fb0cc;
+  font-size: var(--fs-sm);
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+@media (max-width: 760px) {
+  .festive-offer-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .festive-banner-heading {
+    font-size: var(--fs-2xl);
+  }
+}

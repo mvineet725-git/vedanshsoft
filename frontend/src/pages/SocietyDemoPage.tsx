@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import Seo from "../components/Seo";
 import DemoBanner from "../components/DemoBanner";
 import Icon from "../components/Icon";
+import StatCard from "../components/StatCard";
+import DonutBreakdownChart from "../components/DonutBreakdownChart";
 import { DEMO_SOCIETY } from "../data/demoData";
 import { track } from "../lib/analytics";
 import { useTrackPageView } from "../lib/useTrackPageView";
@@ -20,6 +22,18 @@ const MAINTENANCE_BADGE: Record<string, string> = {
 export default function SocietyDemoPage() {
   const [tab, setTab] = useState<Tab>("flats");
   useTrackPageView("society", "society_demo");
+
+  const maintenanceBreakdown = useMemo(() => {
+    const counts = { Paid: 0, Due: 0, Overdue: 0 };
+    for (const flat of DEMO_SOCIETY.flats) {
+      counts[flat.maintenanceStatus] += 1;
+    }
+    return [
+      { name: "Paid", value: counts.Paid },
+      { name: "Due", value: counts.Due },
+      { name: "Overdue", value: counts.Overdue },
+    ];
+  }, []);
 
   const onTabChange = (next: Tab) => {
     setTab(next);
@@ -45,22 +59,24 @@ export default function SocietyDemoPage() {
           <DemoBanner />
 
           <div className="demo-stats-row">
-            <div className="stat-card">
-              <span className="stat-value">{DEMO_SOCIETY.units}</span>
-              <span className="stat-label">Total Units</span>
-            </div>
-            <div className="stat-card">
-              <span className="stat-value">{DEMO_SOCIETY.flats.filter((f) => f.maintenanceStatus === "Paid").length}</span>
-              <span className="stat-label">Maintenance Paid (sample)</span>
-            </div>
-            <div className="stat-card">
-              <span className="stat-value">{DEMO_SOCIETY.complaints.filter((c) => c.status !== "Resolved").length}</span>
-              <span className="stat-label">Open Complaints (sample)</span>
-            </div>
-            <div className="stat-card">
-              <span className="stat-value">{DEMO_SOCIETY.notices.length}</span>
-              <span className="stat-label">Active Notices (sample)</span>
-            </div>
+            <StatCard icon="building" tone="royal" label="Total Units" value={DEMO_SOCIETY.units} />
+            <StatCard
+              icon="wallet"
+              tone="teal"
+              label="Maintenance Paid (sample)"
+              value={DEMO_SOCIETY.flats.filter((f) => f.maintenanceStatus === "Paid").length}
+            />
+            <StatCard
+              icon="message"
+              tone="warning"
+              label="Open Complaints (sample)"
+              value={DEMO_SOCIETY.complaints.filter((c) => c.status !== "Resolved").length}
+            />
+            <StatCard icon="bell" tone="royal" label="Active Notices (sample)" value={DEMO_SOCIETY.notices.length} />
+          </div>
+
+          <div className="demo-chart-row">
+            <DonutBreakdownChart title="Maintenance Collection Status (sample)" data={maintenanceBreakdown} />
           </div>
 
           <div className="demo-tabs" role="tablist">

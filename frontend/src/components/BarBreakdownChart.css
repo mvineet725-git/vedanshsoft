@@ -1,0 +1,11 @@
+.bar-breakdown-title {
+  font-size: var(--fs-lg);
+  margin-bottom: var(--space-4);
+}
+
+.bar-breakdown-empty {
+  color: var(--color-text-subtle);
+  font-size: var(--fs-sm);
+  padding: var(--space-6) 0;
+  text-align: center;
+}

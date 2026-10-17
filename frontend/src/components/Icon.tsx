@@ -20,7 +20,11 @@ export type IconName =
   | "search"
   | "layers"
   | "map-pin"
-  | "x-circle";
+  | "x-circle"
+  | "inbox"
+  | "trending-up"
+  | "sparkles"
+  | "gift";
 
 const paths: Record<IconName, string> = {
   building: "M4 21V7l8-4 8 4v14M4 21h16M9 21v-5h6v5M9 11h.01M9 15h.01M15 11h.01M15 15h.01",
@@ -45,6 +49,10 @@ const paths: Record<IconName, string> = {
   layers: "m12 2 9 5-9 5-9-5 9-5ZM3 12l9 5 9-5M3 17l9 5 9-5",
   "map-pin": "M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z",
   "x-circle": "M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20ZM15 9l-6 6M9 9l6 6",
+  inbox: "M22 12h-6l-2 3h-4l-2-3H2M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11Z",
+  "trending-up": "M23 6 13.5 15.5l-5-5L1 18M17 6h6v6",
+  sparkles: "M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8",
+  gift: "M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7ZM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7Z",
 };
 
 export default function Icon({ name, size = 28 }: { name: IconName; size?: number }) {

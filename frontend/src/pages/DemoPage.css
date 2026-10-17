@@ -11,6 +11,11 @@
   }
 }
 
+.demo-chart-row {
+  max-width: 480px;
+  margin: 0 auto var(--space-7);
+}
+
 .demo-tabs {
   display: flex;
   gap: var(--space-2);

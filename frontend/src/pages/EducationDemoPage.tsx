@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import Seo from "../components/Seo";
 import DemoBanner from "../components/DemoBanner";
 import Icon from "../components/Icon";
+import StatCard from "../components/StatCard";
+import DonutBreakdownChart from "../components/DonutBreakdownChart";
 import { DEMO_INSTITUTE } from "../data/demoData";
 import { track } from "../lib/analytics";
 import { useTrackPageView } from "../lib/useTrackPageView";
@@ -14,6 +16,15 @@ type Tab = "students" | "batches" | "results";
 export default function EducationDemoPage() {
   const [tab, setTab] = useState<Tab>("students");
   useTrackPageView("education", "education_demo");
+
+  const feeBreakdown = useMemo(() => {
+    const paid = DEMO_INSTITUTE.students.filter((s) => s.feeStatus === "Paid").length;
+    const due = DEMO_INSTITUTE.students.length - paid;
+    return [
+      { name: "Paid", value: paid },
+      { name: "Due", value: due },
+    ];
+  }, []);
 
   const onTabChange = (next: Tab) => {
     setTab(next);
@@ -39,24 +50,24 @@ export default function EducationDemoPage() {
           <DemoBanner />
 
           <div className="demo-stats-row">
-            <div className="stat-card">
-              <span className="stat-value">{DEMO_INSTITUTE.students.length}</span>
-              <span className="stat-label">Sample Students</span>
-            </div>
-            <div className="stat-card">
-              <span className="stat-value">{DEMO_INSTITUTE.batches.length}</span>
-              <span className="stat-label">Active Batches (sample)</span>
-            </div>
-            <div className="stat-card">
-              <span className="stat-value">
-                {Math.round(DEMO_INSTITUTE.students.reduce((sum, s) => sum + s.attendance, 0) / DEMO_INSTITUTE.students.length)}%
-              </span>
-              <span className="stat-label">Avg. Attendance (sample)</span>
-            </div>
-            <div className="stat-card">
-              <span className="stat-value">{DEMO_INSTITUTE.students.filter((s) => s.feeStatus === "Paid").length}</span>
-              <span className="stat-label">Fees Paid (sample)</span>
-            </div>
+            <StatCard icon="users" tone="royal" label="Sample Students" value={DEMO_INSTITUTE.students.length} />
+            <StatCard icon="layers" tone="teal" label="Active Batches (sample)" value={DEMO_INSTITUTE.batches.length} />
+            <StatCard
+              icon="trending-up"
+              tone="teal"
+              label="Avg. Attendance (sample)"
+              value={`${Math.round(DEMO_INSTITUTE.students.reduce((sum, s) => sum + s.attendance, 0) / DEMO_INSTITUTE.students.length)}%`}
+            />
+            <StatCard
+              icon="wallet"
+              tone="royal"
+              label="Fees Paid (sample)"
+              value={DEMO_INSTITUTE.students.filter((s) => s.feeStatus === "Paid").length}
+            />
+          </div>
+
+          <div className="demo-chart-row">
+            <DonutBreakdownChart title="Fee Collection Status (sample)" data={feeBreakdown} />
           </div>
 
           <div className="demo-tabs" role="tablist">

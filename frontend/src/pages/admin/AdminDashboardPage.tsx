@@ -1,6 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import AdminLayout from "./AdminLayout";
+import StatCard from "../../components/StatCard";
+import DonutBreakdownChart from "../../components/DonutBreakdownChart";
+import BarBreakdownChart from "../../components/BarBreakdownChart";
 import { api } from "../../lib/api";
 import {
   ENQUIRY_SOURCE_LABELS_BY_NAME,
@@ -11,6 +14,10 @@ import {
   PRODUCT_INTEREST_LABELS_BY_NAME,
   type DashboardSummary,
 } from "../../types/enquiry";
+
+function toChartData(record: Record<string, number>, labels: Record<string, string>) {
+  return Object.entries(record).map(([key, value]) => ({ name: labels[key] ?? key, value }));
+}
 
 export default function AdminDashboardPage() {
   const [summary, setSummary] = useState<DashboardSummary | null>(null);
@@ -24,6 +31,19 @@ export default function AdminDashboardPage() {
       .catch(() => setError("Unable to load dashboard data."))
       .finally(() => setIsLoading(false));
   }, []);
+
+  const productChartData = useMemo(
+    () => (summary ? toChartData(summary.enquiriesByProduct, PRODUCT_INTEREST_LABELS_BY_NAME) : []),
+    [summary],
+  );
+  const statusChartData = useMemo(
+    () => (summary ? toChartData(summary.enquiriesByStatus, ENQUIRY_STATUS_LABELS_BY_NAME) : []),
+    [summary],
+  );
+  const sourceChartData = useMemo(
+    () => (summary ? toChartData(summary.enquiriesBySource, ENQUIRY_SOURCE_LABELS_BY_NAME) : []),
+    [summary],
+  );
 
   return (
     <AdminLayout>
@@ -40,75 +60,43 @@ export default function AdminDashboardPage() {
       {summary && (
         <>
           <div className="grid grid-4" style={{ marginBottom: "var(--space-7)" }}>
-            <div className="stat-card">
-              <span className="stat-value">{summary.totalEnquiries}</span>
-              <span className="stat-label">Total Enquiries</span>
-            </div>
-            <div className="stat-card">
-              <span className="stat-value">{summary.newEnquiries}</span>
-              <span className="stat-label">New Enquiries</span>
-            </div>
-            <div className="stat-card">
-              <span className="stat-value">
-                {summary.enquiriesByProduct["SocietyManagementSoftware"] ?? 0}
-              </span>
-              <span className="stat-label">Society Management Enquiries</span>
-            </div>
-            <div className="stat-card">
-              <span className="stat-value">
-                {summary.enquiriesByProduct["EducationManagementSoftware"] ?? 0}
-              </span>
-              <span className="stat-label">Education Management Enquiries</span>
-            </div>
+            <StatCard icon="inbox" tone="royal" label="Total Enquiries" value={summary.totalEnquiries} />
+            <StatCard icon="sparkles" tone="teal" label="New Enquiries" value={summary.newEnquiries} />
+            <StatCard
+              icon="building"
+              tone="royal"
+              label="Society Management Enquiries"
+              value={summary.enquiriesByProduct["SocietyManagementSoftware"] ?? 0}
+            />
+            <StatCard
+              icon="graduation"
+              tone="teal"
+              label="Education Management Enquiries"
+              value={summary.enquiriesByProduct["EducationManagementSoftware"] ?? 0}
+            />
           </div>
 
           <div className="grid grid-2" style={{ marginBottom: "var(--space-7)" }}>
-            <div className="stat-card" style={{ borderColor: summary.followUpsDueToday > 0 ? "var(--color-warning)" : undefined }}>
-              <span className="stat-value">{summary.followUpsDueToday}</span>
-              <span className="stat-label">Follow-ups Due Today</span>
-            </div>
-            <div className="stat-card" style={{ borderColor: summary.overdueFollowUps > 0 ? "var(--color-danger)" : undefined }}>
-              <span className="stat-value">{summary.overdueFollowUps}</span>
-              <span className="stat-label">Overdue Follow-ups</span>
-            </div>
+            <StatCard
+              icon="calendar"
+              tone="warning"
+              alert={summary.followUpsDueToday > 0}
+              label="Follow-ups Due Today"
+              value={summary.followUpsDueToday}
+            />
+            <StatCard
+              icon="bell"
+              tone="danger"
+              alert={summary.overdueFollowUps > 0}
+              label="Overdue Follow-ups"
+              value={summary.overdueFollowUps}
+            />
           </div>
 
           <div className="grid grid-3" style={{ marginBottom: "var(--space-7)", alignItems: "start" }}>
-            <div className="card">
-              <h3 style={{ marginBottom: "var(--space-4)", fontSize: "var(--fs-lg)" }}>Enquiries by Product</h3>
-              <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
-                {Object.entries(summary.enquiriesByProduct).map(([key, count]) => (
-                  <div key={key} style={{ display: "flex", justifyContent: "space-between", fontSize: "var(--fs-sm)" }}>
-                    <span>{PRODUCT_INTEREST_LABELS_BY_NAME[key] ?? key}</span>
-                    <strong>{count}</strong>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="card">
-              <h3 style={{ marginBottom: "var(--space-4)", fontSize: "var(--fs-lg)" }}>Enquiries by Status</h3>
-              <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
-                {Object.entries(summary.enquiriesByStatus).map(([key, count]) => (
-                  <div key={key} style={{ display: "flex", justifyContent: "space-between", fontSize: "var(--fs-sm)" }}>
-                    <span>{ENQUIRY_STATUS_LABELS_BY_NAME[key] ?? key}</span>
-                    <strong>{count}</strong>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="card">
-              <h3 style={{ marginBottom: "var(--space-4)", fontSize: "var(--fs-lg)" }}>Enquiries by Source</h3>
-              <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
-                {Object.entries(summary.enquiriesBySource).map(([key, count]) => (
-                  <div key={key} style={{ display: "flex", justifyContent: "space-between", fontSize: "var(--fs-sm)" }}>
-                    <span>{ENQUIRY_SOURCE_LABELS_BY_NAME[key] ?? key}</span>
-                    <strong>{count}</strong>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <DonutBreakdownChart title="Enquiries by Product" data={productChartData} />
+            <DonutBreakdownChart title="Enquiries by Status" data={statusChartData} />
+            <BarBreakdownChart title="Enquiries by Source" data={sourceChartData} />
           </div>
 
           <div className="card">

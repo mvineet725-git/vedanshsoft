@@ -29,6 +29,25 @@
   --color-danger-bg: #fbe9eb;
   --color-info-bg: #e8f1fd;
 
+  /* Chart palette (ordered for consistent category-to-color mapping) */
+  --chart-1: var(--color-royal-500);
+  --chart-2: var(--color-teal-500);
+  --chart-3: #d98c2b;
+  --chart-4: #7a5fd6;
+  --chart-5: #c62c3a;
+  --chart-6: #2b8fd9;
+  --chart-grid: #e4eaf3;
+  --chart-axis: var(--color-text-subtle);
+
+  /* Festive (Dussehra/Diwali) accent - warm gold on deep navy, used only by
+     the festive campaign section so it stays visually distinct from the
+     everyday corporate navy/teal palette. */
+  --color-festive-bg: #0a1830;
+  --color-festive-bg-alt: #13254a;
+  --color-festive-gold: #e8b64a;
+  --color-festive-gold-bright: #f6cf7a;
+  --color-festive-ember: #d9742e;
+
   /* Typography */
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --fs-xs: 0.8125rem;

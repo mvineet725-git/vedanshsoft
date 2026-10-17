@@ -12,6 +12,7 @@ import BeforeAfterComparison from "../components/BeforeAfterComparison";
 import TestimonialsOrExplore from "../components/TestimonialsOrExplore";
 import SearchableFaq from "../components/SearchableFaq";
 import MultiStepEnquiryForm from "../components/MultiStepEnquiryForm";
+import FestiveCampaignBanner from "../components/FestiveCampaignBanner";
 import Icon from "../components/Icon";
 import { GENERAL_FAQS } from "../data/faqs";
 import { EnquirySource, ProductInterest } from "../types/enquiry";
@@ -106,11 +107,11 @@ export default function HomePage() {
               daily operations, improve visibility, and save administrative time.
             </p>
             <div className="hero-ctas">
-              <Link to="/solutions" className="btn btn-primary">
-                Explore Our Solutions
+              <Link to="/contact?demo=true" className="btn btn-primary" onClick={() => track("demo_cta_click", { page: "home_hero" })}>
+                Book a Free Demo
               </Link>
-              <Link to="/contact?demo=true" className="btn btn-secondary" onClick={() => track("demo_cta_click", { page: "home_hero" })}>
-                Request a Demo
+              <Link to="/solutions" className="btn btn-secondary">
+                Explore Our Solutions
               </Link>
             </div>
           </div>
@@ -119,6 +120,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <FestiveCampaignBanner />
 
       <section className="section trust-band">
         <div className="container">
@@ -204,7 +207,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section section-alt">
         <div className="container">
           <div className="section-head" style={{ margin: "0 auto var(--space-7)", textAlign: "center" }}>
             <span className="eyebrow">Key Benefits</span>

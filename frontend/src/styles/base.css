@@ -81,6 +81,12 @@ img {
   .section { padding-block: var(--space-7); }
 }
 
+/* Alternating tint used sparingly to break up long sequences of white
+   sections and give the page a clearer visual rhythm. */
+.section-alt {
+  background: var(--color-bg-alt);
+}
+
 .section-head {
   max-width: 680px;
   margin-bottom: var(--space-7);
