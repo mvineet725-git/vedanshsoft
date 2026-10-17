@@ -81,6 +81,19 @@ database to check applied-migration state, using the placeholder connection
 string in `SqlServerAppDbContextFactory`— set a real one there (or via
 environment) if you need to run it against an actual server.
 
+**Gotcha:** `dotnet ef migrations add --context <AnyContext>` currently
+always resolves to `SqlServerAppDbContextFactory`, ignoring `--context`,
+because EF Core's tooling uses the single `IDesignTimeDbContextFactory`
+implementation found in the assembly unconditionally once exactly one
+exists — it does not fall back to `--context`-based DI resolution in that
+case. In practice this means **every `migrations add` invocation today
+produces a SQL-Server-tagged migration**, regardless of `--output-dir` or
+`--context`; verify the generated file's `[DbContext(typeof(...))]`
+attribute and the model snapshot that actually got touched before trusting
+either flag. (A `--output-dir Migrations/Sqlite` migration generated this
+way will still be tagged for `SqlServerAppDbContext`, which is wrong — this
+bit a real column-width fix during the 2026-10-17 production push.)
+
 In normal operation, migrations are applied automatically at application
 startup (see `Program.cs`), so a manual `database update` is only needed for
 controlled production rollouts (see [DEPLOYMENT.md](DEPLOYMENT.md) §6).

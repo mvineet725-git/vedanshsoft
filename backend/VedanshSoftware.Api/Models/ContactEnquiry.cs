@@ -43,7 +43,9 @@ public class ContactEnquiry
 {
     public int EnquiryId { get; set; }
 
-    [MaxLength(20)]
+    // Format: VSS-yyyyMMdd-XXXXXXXXX (4 + 8 + 1 + 9 = 22 chars); 30 leaves headroom
+    // for a longer suffix later without another migration.
+    [MaxLength(30)]
     public string EnquiryReferenceNumber { get; set; } = string.Empty;
 
     [MaxLength(120)]

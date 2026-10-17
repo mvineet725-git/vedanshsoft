@@ -256,8 +256,8 @@ namespace VedanshSoftware.Api.Migrations.SqlServer
 
                     b.Property<string>("EnquiryReferenceNumber")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<int>("EnquirySource")
                         .HasColumnType("int");
