@@ -17,6 +17,10 @@ frontend/dist-ssr/
 .env
 .env.*
 !.env.example
+# frontend/.env.production holds only a public API base URL (no secrets - Vite
+# env vars are baked into the client bundle and visible to every visitor
+# anyway), committed so Vercel builds work without a manual dashboard step.
+!frontend/.env.production
 appsettings.*.local.json
 *.pfx
 *.key
