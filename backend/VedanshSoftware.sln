@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VedanshSoftware.Api", "VedanshSoftware.Api\VedanshSoftware.Api.csproj", "{F6254DEA-AA1B-430E-B5FB-11372C5A65DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VedanshSoftware.Api.Tests", "VedanshSoftware.Api.Tests\VedanshSoftware.Api.Tests.csproj", "{F33C4DBF-775C-4DC6-9842-C94A76C20FE9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{F6254DEA-AA1B-430E-B5FB-11372C5A65DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6254DEA-AA1B-430E-B5FB-11372C5A65DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6254DEA-AA1B-430E-B5FB-11372C5A65DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F33C4DBF-775C-4DC6-9842-C94A76C20FE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F33C4DBF-775C-4DC6-9842-C94A76C20FE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F33C4DBF-775C-4DC6-9842-C94A76C20FE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F33C4DBF-775C-4DC6-9842-C94A76C20FE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -223,6 +223,13 @@ app.Use(async (context, next) =>
     context.Response.Headers["X-Frame-Options"] = "DENY";
     context.Response.Headers["Referrer-Policy"] = "strict-origin-when-cross-origin";
     context.Response.Headers["Permissions-Policy"] = "geolocation=(), microphone=(), camera=()";
+    // This API never serves HTML to browsers in production (JSON only), so the
+    // policy is maximally restrictive. Skipped in Development so Swagger UI
+    // (served from this same app) keeps working.
+    if (!app.Environment.IsDevelopment())
+    {
+        context.Response.Headers["Content-Security-Policy"] = "default-src 'none'; frame-ancestors 'none'";
+    }
     await next();
 });
 

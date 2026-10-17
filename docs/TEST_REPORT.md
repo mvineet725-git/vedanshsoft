@@ -3,7 +3,53 @@
 This report lists only tests that were actually executed during development,
 with pass/fail status. It will be extended as automated test suites are added.
 
-Last updated: 2026-10-16
+Last updated: 2026-10-17
+
+## Automated Backend Test Suite (2026-10-17)
+
+A permanent xUnit integration test project
+(`backend/VedanshSoftware.Api.Tests`) was added — the first automated test
+coverage in this repository; everything above this section was manual/
+Playwright-driven exploratory testing performed during development and is not
+re-run automatically. The new suite boots the real `Program.cs` app
+(`WebApplicationFactory<Program>`) against a throwaway SQLite database per
+test class, so it exercises the actual DI wiring, EF Core migrations,
+ASP.NET Identity, JWT issuance/validation, and rate limiting — not mocks.
+Runs automatically on every push/PR via `.github/workflows/ci.yml`.
+
+| Area | Tests | Result |
+|---|---|---|
+| Enquiry submission (valid, missing fields, invalid phone, missing consent, oversized message, honeypot, duplicate-absorption, confirmation lookup) | 8 | PASS |
+| Auth & authorization (valid/invalid login, unauthenticated access to admin dashboard/enquiries list/status update, Staff vs Admin role boundary on CSV export) | 9 | PASS |
+| Admin enquiry management (full submit → search → update status → add note → verify journey; not-found handling; dashboard summary reflects new enquiries) | 3 | PASS |
+| Rate limiting (enquiry submission 429 after 5/10min, login 429 after 10/15min) | 2 | PASS |
+| Health check | 1 | PASS |
+| **Total** | **23** | **PASS** |
+
+Run with: `cd backend && dotnet test`.
+
+### Real bugs found and fixed while building this suite
+
+1. **Login crashed with 500 instead of 401 for any non-existent email**
+   (`AuthController.cs`). The timing-attack mitigation hashed the submitted
+   password against a hardcoded `DummyPasswordHash` constant intended to
+   simulate a real password check. That constant was not valid Base64, so
+   `IPasswordHasher.VerifyHashedPassword` threw a `FormatException` on every
+   such attempt — meaning the mitigation never actually ran, and every
+   mistyped-email login (a very common real-world case) surfaced an
+   unhandled server error instead of "Invalid email or password." Fixed by
+   replacing it with a real `PasswordHasher.HashPassword()` output. Confirmed
+   by the `Nonexistent_email_is_rejected_the_same_way_as_a_wrong_password`
+   test, which failed with `500` before the fix and passes now.
+2. **Test-infrastructure gotcha, not a product bug, but worth recording:**
+   `WebApplicationFactory`'s `ConfigureAppConfiguration` + `AddInMemoryCollection`
+   did not reliably out-rank `dotnet user-secrets` values already set on the
+   development machine (e.g. a real `Jwt:Secret`), so the test app was
+   signing tokens with one secret and validating them with another,
+   producing confusing 401s on every authenticated request. Fixed by using
+   `IWebHostBuilder.UseSetting(...)` instead, which is guaranteed to win.
+   Documented in `CustomWebApplicationFactory.cs` so it isn't rediscovered
+   the hard way again.
 
 ## Priority 5: Analytics Instrumentation (2026-10-16)
 
@@ -327,26 +373,47 @@ sweep (all pages, both viewports) after each change, and by visually
 inspecting screenshots of the open mobile menu and several pages at both
 viewport sizes.
 
+## Real SQL Server Target — Verified (2026-10-17)
+
+Previously an open gap (see below for history). A real SQL Server database
+(`vsite` on `ACL-402\SQL2022`) was created and the app run end-to-end against
+it with `DatabaseProvider=SqlServer`:
+
+| Test | Result |
+|---|---|
+| `dotnet ef` migrations generate SQL-Server-correct schema (`nvarchar(450)` Identity keys, not SQLite's unconstrained `TEXT`) | PASS |
+| App starts and runs `Database.Migrate()` against the real database with no errors | PASS |
+| `GET /api/health` returns 200 against the SQL-Server-backed app | PASS |
+| All 10 expected tables created with correct key column types, verified directly via `sys.tables`/`sys.columns` | PASS |
+
+This exercised schema creation and app startup, not the full manual
+functional pass (enquiry submission, admin login, etc.) against SQL Server
+specifically — those flows are covered against SQLite by the automated suite
+above and are not expected to differ by provider (the app's queries are
+provider-agnostic LINQ), but a full manual pass against SQL Server has not
+been separately repeated.
+
 ## Not Yet Tested / Known Gaps
 
 - **Accessibility (screen reader, keyboard-only navigation):** semantic HTML,
   focus-visible styles, and ARIA attributes on the FAQ accordion are
   implemented, but have not been tested with an actual screen reader.
-- **Real SQL Server target:** all testing above used SQLite (the agreed local
-  dev database). The SQL Server code path (`UseSqlServer`) has not been
-  exercised against a live SQL Server instance.
 - **Real email delivery:** `Email:Enabled` is `false` in this environment (no
-  Gmail App Password was provided per the user's request); email sending logs
-  intended messages instead of delivering them. Not yet tested against a real
-  Gmail SMTP connection.
-- **Load/rate-limit behavior under concurrent traffic:** rate limiting logic
-  was implemented and endpoint-tested for correctness but not load-tested.
+  Gmail App Password has been configured); email sending logs intended
+  messages instead of delivering them. Not yet tested against a real Gmail
+  SMTP connection. See `PRODUCTION_READINESS_REPORT.md` for exact setup steps.
+- **Frontend automated tests:** no Vitest/Playwright test suite exists yet;
+  frontend verification remains manual/exploratory (see entries above) plus
+  `npm run lint` and `npm run build` (which includes a full TypeScript
+  type-check) running in CI on every push.
 - **Cross-browser testing:** verified only in headless Chromium.
+- **Real mobile device testing:** verified via responsive emulation only, not
+  on physical Android/iOS devices.
 
 ## Recommendation Before Production Launch
 
-1. Exercise the admin dashboard pages in a real browser (not just the API).
-2. Configure and test real Gmail SMTP delivery end-to-end.
-3. Run a full pass against a real SQL Server instance, including migrations.
-4. Have a qualified legal professional review the Privacy Policy and Terms of Use drafts.
-5. Test on real mobile devices (Android, per the acceptance criteria) in addition to responsive emulation.
+1. Exercise the admin dashboard pages in a real browser (not just the API) — still outstanding.
+2. Configure and test real Gmail SMTP delivery end-to-end — still outstanding.
+3. ~~Run a full pass against a real SQL Server instance, including migrations.~~ Done 2026-10-17 — see above.
+4. Have a qualified legal professional review the Privacy Policy and Terms of Use drafts — still outstanding.
+5. Test on real mobile devices (Android, per the acceptance criteria) in addition to responsive emulation — still outstanding.

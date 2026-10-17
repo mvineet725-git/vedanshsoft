@@ -18,9 +18,15 @@ public class AuthController : ControllerBase
     private readonly ILogger<AuthController> _logger;
     private readonly IPasswordHasher<AdminUser> _passwordHasher;
 
-    // A pre-computed Identity password hash with no corresponding real account, used only
-    // to burn equivalent CPU time when the submitted email doesn't exist.
-    private const string DummyPasswordHash = "AQAAAAIAAYagAAAAEDummyDummyDummyDummyDummyDummyDummyDummyDummyDummyDummyDummyDummyDA==";
+    // A real Identity PasswordHasher output (for an arbitrary password, no corresponding
+    // real account) used only to burn equivalent CPU time when the submitted email doesn't
+    // exist. Must be a genuine PasswordHasher.HashPassword() result, not a hand-edited
+    // string: VerifyHashedPassword parses this value's binary layout (format marker, PRF,
+    // iteration count, salt), so an invalid value throws a FormatException instead of
+    // returning "failed" - which previously turned every login attempt for a non-existent
+    // email into an unhandled 500 rather than a 401, and skipped the timing-parity check
+    // entirely.
+    private const string DummyPasswordHash = "AQAAAAIAAYagAAAAEF/svHeEex3ZPvWoooX0jS56f0UT9OtLCTmV6GgqXkr+E5cREWlMFhkhfsrFvlaH0w==";
 
     public AuthController(
         UserManager<AdminUser> userManager,
