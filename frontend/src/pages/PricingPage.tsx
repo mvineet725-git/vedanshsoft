@@ -73,8 +73,9 @@ export default function PricingPage() {
             <h2>Get a Quote for Your Organization</h2>
             <p className="text-muted" style={{ marginTop: "var(--space-3)", maxWidth: "480px" }}>
               Share a few details about your organization and requirements, and our team will follow up
-              with pricing information tailored to your scope. There are no fixed public prices, discounts,
-              or promotional offers to display until commercial terms are agreed with you directly.
+              with pricing information tailored to your scope. We do not publish fixed price lists, because
+              pricing depends on your size, modules, and implementation needs — including any seasonal
+              pricing that may apply, which our team will confirm with you directly.
             </p>
           </div>
           <MultiStepEnquiryForm

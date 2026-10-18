@@ -110,7 +110,11 @@ export default function HomePage() {
               <Link to="/contact?demo=true" className="btn btn-primary" onClick={() => track("demo_cta_click", { page: "home_hero" })}>
                 Book a Free Demo
               </Link>
-              <Link to="/solutions" className="btn btn-secondary">
+              <Link
+                to="/solutions"
+                className="btn btn-secondary"
+                onClick={() => track("contact_cta_click", { page: "home_hero_explore" })}
+              >
                 Explore Our Solutions
               </Link>
             </div>

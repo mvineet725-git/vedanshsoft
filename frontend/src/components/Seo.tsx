@@ -5,11 +5,19 @@ interface SeoProps {
   ogImage?: string;
 }
 
-const SITE_URL = "https://www.vedanshsoftware.com";
+// TEMPORARY (friend-review round): points at the live Vercel host so canonical
+// URLs and social link-preview images actually resolve when the link is shared.
+//
+// BEFORE PUBLIC LAUNCH: change this back to "https://www.vedanshsoftware.com"
+// (and update public/sitemap.xml + public/robots.txt, which still reference the
+// real domain) once that domain is connected to the Vercel project. Leaving it
+// on the vercel.app host after launch would make search engines treat the
+// temporary host as canonical.
+const SITE_URL = "https://vedanshsoft-kzuq.vercel.app";
 
 export default function Seo({ title, description, canonicalPath, ogImage }: SeoProps) {
   const canonicalUrl = `${SITE_URL}${canonicalPath}`;
-  const image = ogImage ?? `${SITE_URL}/og-default.png`;
+  const image = ogImage ?? `${SITE_URL}/og-default.svg`;
 
   return (
     <>

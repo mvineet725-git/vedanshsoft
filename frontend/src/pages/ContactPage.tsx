@@ -68,7 +68,11 @@ export default function ContactPage() {
                 </span>
               </a>
 
-              <a href={`mailto:${COMPANY_EMAIL}`} className="contact-channel">
+              <a
+                href={`mailto:${COMPANY_EMAIL}`}
+                className="contact-channel"
+                onClick={() => track("contact_cta_click", { page: "contact_email" })}
+              >
                 <span className="contact-channel-icon"><Icon name="mail" /></span>
                 <span>
                   <strong>Email Us</strong>

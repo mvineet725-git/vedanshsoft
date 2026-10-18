@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Vedansh Software Services — Society and Education Management Software">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#163a6b"/>
+      <stop offset="100%" stop-color="#0b1f3a"/>
+    </linearGradient>
+    <linearGradient id="markBg" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1e4fa3"/>
+      <stop offset="100%" stop-color="#0b1f3a"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- subtle accent arc -->
+  <circle cx="1080" cy="100" r="260" fill="#2cc3a9" opacity="0.06"/>
+  <circle cx="120" cy="560" r="200" fill="#2563c7" opacity="0.08"/>
+
+  <!-- logo mark -->
+  <g transform="translate(96, 150)">
+    <rect width="120" height="120" rx="30" fill="url(#markBg)"/>
+    <path d="M34 41 L60 75 L86 41" stroke="#1a4f8f" stroke-opacity="0.55" stroke-width="17" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M34 37 L60 75 L86 37" stroke="#2cc3a9" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <circle cx="34" cy="37" r="10" fill="#0b1f3a"/>
+    <circle cx="34" cy="37" r="7.5" fill="#ffffff"/>
+    <circle cx="86" cy="37" r="10" fill="#0b1f3a"/>
+    <circle cx="86" cy="37" r="7.5" fill="#ffffff"/>
+    <circle cx="60" cy="75" r="12" fill="#0b1f3a"/>
+    <circle cx="60" cy="75" r="9" fill="#2cc3a9"/>
+  </g>
+
+  <text x="248" y="200" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="40" font-weight="700" fill="#ffffff">Vedansh Software Services</text>
+  <text x="248" y="248" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="500" fill="#9fb0cc">Practical software for Indian societies and institutions</text>
+
+  <text x="96" y="372" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="56" font-weight="800" fill="#ffffff">Society Management &amp;</text>
+  <text x="96" y="444" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="56" font-weight="800" fill="#ffffff">Education Management</text>
+  <text x="96" y="516" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="56" font-weight="800" fill="#2cc3a9">Software</text>
+
+  <rect x="96" y="556" width="420" height="4" rx="2" fill="#2cc3a9" opacity="0.7"/>
+</svg>
