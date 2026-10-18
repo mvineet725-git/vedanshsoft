@@ -149,8 +149,9 @@ These are already known and being worked on, so please don't spend time on them:
 2. **No pricing figures are shown anywhere.** This is deliberate — pricing is
    quoted per organization, and no discount has been approved yet, so the festive
    section says "Request Festive Pricing" rather than advertising a number.
-3. **Link previews (e.g. when sharing the URL on WhatsApp) may look plain.** The
-   real domain isn't connected yet.
+3. **Link previews may show no image on WhatsApp.** The preview image is
+   currently an SVG, which WhatsApp doesn't render (Slack, LinkedIn and X do).
+   A PNG version is a known to-do.
 4. **The site may occasionally fail to submit enquiries.** The backend currently
    runs through a temporary tunnel that can drop without warning. If the enquiry
    form shows an error, please tell me roughly when — that's useful signal, but
